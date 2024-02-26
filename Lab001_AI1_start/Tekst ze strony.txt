@@ -1,0 +1,50 @@
+Wycieczki górskie
+
+Start
+Wycieczki
+Cenniki
+Inne
+...
+ 
+ 
+Niesamowite widoki!
+Niesamowite przeżycia!
+Piękno natury!
+
+
+Wycieczki
+
+Kolorado
+jest wyżynno-górzystym stanem, którego średnia wysokość nad poziomem morza przekracza 2000 m. Najwyższy szczyt Kolorado, Mount Elbert, wznosi się na 4399 m n.p.m.
+
+Alaska
+pasmo górskie w Ameryce Północnej w stanie Alaska. Jest to najwyższa część łańcucha Kordylierów z najwyższym szczytem kontynentu - Denali (McKinley) (6194 m n.p.m.).
+
+Everest
+najwyższy szczyt Ziemi (8848 m n.p.m., podaje się też wysokość 8844 lub 8850), ośmiotysięcznik położony w Himalajach Wysokich, na granicy Nepalu i Tybetu.
+
+Alpy
+najwyższy łańcuch górski Europy, ciągnący się łukiem od wybrzeża Morza Śródziemnego w okolicy Savony po dolinę Dunaju w okolicach Wiednia.
+
+
+Cennik
+#	Nazwa wycieczki	Kontynent	Kraj	Okres	Cena
+1	Kolorado	Ameryka Północna	USA	7 dni	19000 PLN
+2	Alaska	Ameryka Północna	USA	10 dni	24000 PLN
+3	Everest	Azja	Chiny	7 dni	22000 PLN
+4	Alpy	Europa	Austria	6 dni	16000 PLN
+
+
+O naszych wycieczkach...
+Film ze zdjęciami z podróży naszych klientów. Być może Państwa zdjęcia z wyprawy trafią tu za niedługo!
+https://www.youtube.com/watch?v=t7ZpJ7wWlZI
+
+
+Zapytanie o ofertę
+Adres email name@example.com
+Rodzaj oferty indywidualna/grupowa/specjalna
+Budżet 20000 PLN
+Komentarz
+
+
+© Wycieczki górskie - 2024
