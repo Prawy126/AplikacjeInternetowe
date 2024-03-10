@@ -1,13 +1,9 @@
 <?php
 class Point {
-    private $x;
-    private $y;
+    
 
     // Konstruktor przyjmujący współrzędne x i y
-    public function __construct($x, $y) {
-        $this->x = $x;
-        $this->y = $y;
-    }
+    public function __construct(private $x, private $y) {}
 
     // Metoda do wypisania informacji o punkcie
     public function printInfo() {

@@ -6,17 +6,11 @@ use Ramsey\Uuid\Uuid;
 
 class Dog {
     private $id;
-    private $name;
-    private $age;
-    private $admissionDate;
 
     // Konstruktor przyjmujący nazwę, wiek i datę przyjęcia psa
-    public function __construct($name, $age, $admissionDate) {
+    public function __construct(private $name,private $age,private $admissionDate) {
         // Generowanie unikalnego identyfikatora v4
         $this->id = Uuid::uuid4()->toString();
-        $this->name = $name;
-        $this->age = $age;
-        $this->admissionDate = $admissionDate;
     }
 
     // Metoda do wypisania informacji o psie
@@ -41,4 +35,3 @@ $dogs[] = new Dog("Milo", 1, "2023-05-10");
 foreach ($dogs as $dog) {
     $dog->printInfo();
 }
-

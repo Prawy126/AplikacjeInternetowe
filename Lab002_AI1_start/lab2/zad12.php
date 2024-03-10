@@ -2,10 +2,10 @@
 // Ustawienie strefy czasowej na GMT+0 (czas uniwersalny)
 date_default_timezone_set('GMT');
 
-// Obecna data w formacie: Thursday, 04-03-2024
+// Obecna data w formacie: Dzień tygodnia, dzień-miesiąc-rok
 echo date('l, d-m-Y') . "\n";
 
-// Obecna data i godzina w formacie: 2024-March-04 10:10
+// Obecna data i godzina w formacie: rok-miesiąc-dzień godzina:minuta
 echo date('Y-F-d H:i') . "\n";
 
 // Obliczenie liczby dni pomiędzy dniem dzisiejszym a 12 marca 2021 roku
