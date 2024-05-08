@@ -12,6 +12,6 @@ class PhotoSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+
     }
 }
