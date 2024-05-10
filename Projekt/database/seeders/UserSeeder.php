@@ -19,14 +19,14 @@ class UserSeeder extends Seeder
             User::truncate();
         });
 
-        User::insert([
+        User::insert([[
             'name' => 'Michał',
             'surname' => 'Pilecki',
             'email' => 'michal2@mail.com',
             'password' => '1234',
             'address' => 'Ulica',
             'phone_number' => 1234132,
-            'status' => 'użytkonik'
-        ]);
+            'status' => 'użytkowik'
+        ]]);
     }
 }
