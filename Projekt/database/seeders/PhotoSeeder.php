@@ -21,22 +21,18 @@ class PhotoSeeder extends Seeder
         });
         Photo::insert([[
             'announcement_id' => 1,
-            'photo_name' => 'samochod.png'
+            'photo_name' => 'AUDI1.png'
         ],
 
         [
             'announcement_id' => 1,
-            'photo_name' => 'samochod2.png'
+            'photo_name' => 'AUDI2.png'
         ],
+
 
         [
             'announcement_id' => 2,
-            'photo_name' => 'BMW.png'
-        ],
-
-        [
-            'announcement_id' => 2,
-            'photo_name' => 'BWM2.png'
+            'photo_name' => 'img/BWM2.png'
         ]
         ]);
     }

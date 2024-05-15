@@ -26,8 +26,8 @@ class AnnouncementSeeder extends Seeder
             'year' => 2000,
             'mileage' => 321.23,
             'description' => 'Samochód w bardzo dobrym stanie pierwszy właściciel.',
-            'date' => '2024-05-08',
-            'price' => 200
+            'end_date' => '2024-05-08',
+            'min_price' => 200
         ],
 
         [
@@ -37,8 +37,8 @@ class AnnouncementSeeder extends Seeder
             'year' => 2021,
             'mileage' => 32.23,
             'description' => 'Samochód w bardzo dobrym stanie pierwszy właściciel.',
-            'date' => '2024-05-08',
-            'price' => 20000
+            'end_date' => '2024-05-08',
+            'min_price' => 20000
         ]]);
 
 

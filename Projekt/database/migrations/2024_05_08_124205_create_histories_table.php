@@ -13,19 +13,6 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('histories', function (Blueprint $table) {
-            $table->id();
-            $table->foreignIdFor(User::class)->constrained();
-            $table->foreignIdFor(Announcement::class)->constrained();
-            $table->decimal('cost',8,2);
-        });
-    }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        Schema::dropIfExists('histories');
     }
 };

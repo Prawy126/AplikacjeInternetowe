@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -24,7 +25,7 @@ class User extends Authenticatable
         'password',
         'address',
         'phone_number',
-        'status'
+        'role'
     ];
 
     /**
@@ -55,9 +56,9 @@ class User extends Authenticatable
         return $this->hasMany(Announcement::class);
     }
 
-    public function histories(): HasMany
+    public function histories(): BelongsTo
     {
-        return $this->hasMany(History::class);
+        return $this->belongsTo(Bids::class);
     }
 
 }

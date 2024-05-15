@@ -26,7 +26,18 @@ class UserSeeder extends Seeder
             'password' => '1234',
             'address' => 'Ulica',
             'phone_number' => 1234132,
-            'status' => 'użytkowik'
-        ]]);
+            'role' => 'user'
+        ],
+        [
+            'name' => 'Adam',
+            'surname' => 'Nowak',
+            'email' => 'nowak@mail.com',
+            'password' => '1234',
+            'address' => 'Ulica',
+            'phone_number' => 123413312,
+            'role' => 'user'
+        ],
+
+    ]);
     }
 }

@@ -21,9 +21,9 @@ class Announcement extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function histories(): HasMany
+    public function histories(): BelongsTo
     {
-        return $this->hasMany(History::class);
+        return $this->belongsTo(Bids::class);
     }
 
     public function photo(): BelongsTo

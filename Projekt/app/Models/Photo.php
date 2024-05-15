@@ -11,7 +11,7 @@ class Photo extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['announcement_id', 'photo_name'];
+    protected $fillable = ['annoucemnets_id', 'photo_name'];
 
     public $timestamps = false;
 

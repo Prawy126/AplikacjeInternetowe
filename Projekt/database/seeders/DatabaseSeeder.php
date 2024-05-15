@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Announcement;
+use App\Models\Bids;
 use App\Models\History;
 use App\Models\Photo;
 use App\Models\User;
@@ -28,7 +29,11 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             AnnouncementSeeder::class,
             PhotoSeeder::class,
-            HistorySeeder::class
+
+
+
+
+            BidsSeeder::class
 
         ]);
     }

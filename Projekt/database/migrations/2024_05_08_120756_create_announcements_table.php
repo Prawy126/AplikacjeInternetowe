@@ -2,6 +2,7 @@
 
 use App\Models\Account;
 use App\Models\History;
+use App\Models\Photo;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -23,8 +24,8 @@ return new class extends Migration
             $table->integer('year');
             $table->double('mileage');
             $table->text('description')->nullable();
-            $table->date('date');
-            $table->decimal('price', 8,2);
+            $table->date('end_date');
+            $table->decimal('min_price', 8,2);
         });
     }
 

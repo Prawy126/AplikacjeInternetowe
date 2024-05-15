@@ -20,8 +20,8 @@ return new class extends Migration
             $table->string('password');
             $table->string('address',40);
 
-            $table->integer('phone_number');
-            $table->string('status',20);
+            $table->integer('phone_number',false,true);
+            $table->string('role',20);
 
         });
 

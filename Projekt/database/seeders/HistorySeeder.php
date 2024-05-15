@@ -18,7 +18,7 @@ class HistorySeeder extends Seeder
             History::truncate();
         });
         History::insert([[
-            'user_id' => 1,
+            'user_id' => 2,
             'announcement_id'=>1,
             'cost'=>3000
         ]]);
