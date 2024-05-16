@@ -29,10 +29,6 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             AnnouncementSeeder::class,
             PhotoSeeder::class,
-
-
-
-
             BidsSeeder::class
 
         ]);

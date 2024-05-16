@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AnnouncementController;
+use App\Http\Controllers\PhotoController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -17,6 +18,10 @@ Route::controller(AnnouncementController::class)->group(function () {
     //Route::get('/trips/{id}/edit', 'edit')->name('trips.edit');
     //Route::put('/trips/{id}', 'update')->name('trips.update');
     //Route::post('/trips/favourite', 'favourite')->name('trips.favourite');
+});
+
+Route::controller(PhotoController::class)->group(function () {
+   // Route::get('/car/{id}', 'show')->name('cars.show');
 });
 
 

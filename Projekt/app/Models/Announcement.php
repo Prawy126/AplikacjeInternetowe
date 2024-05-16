@@ -6,13 +6,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Announcement extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id' ,'name', 'brand', 'year', 'mileage', 'description', 'date', 'price'];
+    protected $fillable = ['user_id', 'name', 'brand', 'year', 'mileage', 'description', 'date', 'price'];
 
     public $timestamps = false;
 
@@ -21,13 +20,19 @@ class Announcement extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function histories(): BelongsTo
+    public function histories(): HasMany
     {
-        return $this->belongsTo(Bids::class);
+        return $this->hasMany(Bids::class);
     }
 
-    public function photo(): BelongsTo
+    public function photos(): HasMany
     {
-        return $this->belongsTo(Photo::class);
+        return $this->hasMany(Photo::class);
+    }
+
+    // Nowa metoda do pobierania losowego zdjęcia
+    public function randomPhoto()
+    {
+        return $this->photos->random();
     }
 }

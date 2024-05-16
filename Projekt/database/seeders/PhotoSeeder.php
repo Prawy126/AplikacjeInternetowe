@@ -29,11 +29,68 @@ class PhotoSeeder extends Seeder
             'photo_name' => 'AUDI2.png'
         ],
 
+        [
+            'announcement_id' => 2,
+            'photo_name' => 'BMW2.jpeg'
+        ],
 
         [
             'announcement_id' => 2,
-            'photo_name' => 'img/BWM2.png'
+            'photo_name' => 'BMW.jpeg'
+        ],
+
+        [
+            'announcement_id' => 3,
+            'photo_name' => 'MERCEDES_C_CLASS.jpeg'
+        ],
+
+        [
+            'announcement_id' => 3,
+            'photo_name' => 'MERCEDES_C_CLASS.jpg'
+        ],
+        [
+            'announcement_id' => 4,
+            'photo_name' => 'GOLF4.png'
+        ],
+        [
+            'announcement_id' => 4,
+            'photo_name' => 'GOLF4_1.jpg'
+        ],
+
+        [
+            'announcement_id' => 4,
+            'photo_name' => 'GOLF4_2.jpeg'
+        ],
+        [
+            'announcement_id' => 5,
+            'photo_name' => 'TOYOTA1.jpg'
+        ],
+        [
+            'announcement_id' => 5,
+            'photo_name' => 'TOYOTA2.jpeg'
+        ],
+        [
+            'announcement_id' => 5,
+            'photo_name' => 'TOYOTA3.jpeg'
+        ],
+        [
+            'announcement_id' => 5,
+            'photo_name' => 'TOYOTA4.jpg'
+        ],
+        [
+            'announcement_id' => 6,
+            'photo_name' => 'FOCUS.jpg'
+        ],
+        [
+            'announcement_id' => 6,
+            'photo_name' => 'FOCUS2.jpeg'
+        ],
+        [
+            'announcement_id' => 6,
+            'photo_name' => 'FOCUS3.jpg'
         ]
+
+
         ]);
     }
 }

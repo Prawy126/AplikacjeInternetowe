@@ -39,7 +39,49 @@ class AnnouncementSeeder extends Seeder
             'description' => 'Samochód w bardzo dobrym stanie pierwszy właściciel.',
             'end_date' => '2024-05-08',
             'min_price' => 20000
-        ]]);
+        ],
+
+        [
+            'user_id' => 1,
+            'name' => 'Mercedes',
+            'brand' => 'C-Class',
+            'year' => 2015,
+            'mileage' => 65000.50,
+            'description' => 'Samochód w bardzo dobrym stanie, regularnie serwisowany.',
+            'end_date' => '2024-05-10',
+            'min_price' => 25000
+        ],
+        [
+            'user_id' => 1,
+            'name' => 'Volkswagen',
+            'brand' => 'Golf',
+            'year' => 2019,
+            'mileage' => 23000.75,
+            'description' => 'Sprzedam szybko, cena do negocjacji.',
+            'end_date' => '2024-05-12',
+            'min_price' => 15000
+        ],
+        [
+            'user_id' => 2,
+            'name' => 'Toyota',
+            'brand' => 'Corolla',
+            'year' => 2018,
+            'mileage' => 40000.80,
+            'description' => 'Samochód w świetnym stanie, bezwypadkowy.',
+            'end_date' => '2024-05-15',
+            'min_price' => 18000
+        ],
+        [
+            'user_id' => 2,
+            'name' => 'Ford',
+            'brand' => 'Focus',
+            'year' => 2017,
+            'mileage' => 55000.20,
+            'description' => 'Sprzedam tanio, szybka transakcja.',
+            'end_date' => '2024-05-18',
+            'min_price' => 12000
+        ]
+    ]);
 
 
     }

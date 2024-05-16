@@ -4,23 +4,23 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Bids extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id' ,'announcement_id', 'amount', 'time'];
+    protected $fillable = ['user_id', 'announcement_id', 'amount', 'time'];
 
     public $timestamps = false;
 
-    public function user(): HasOne
+    public function user(): BelongsTo
     {
-        return $this->hasOne(User::class);
+        return $this->belongsTo(User::class);
     }
 
-    public function announcements(): HasOne
+    public function announcement(): BelongsTo
     {
-        return $this->hasOne(Announcement::class);
+        return $this->belongsTo(Announcement::class);
     }
 }
