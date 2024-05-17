@@ -21,7 +21,7 @@
             <h1 class="display-1 fw-bold">404</h1>
             <h2>
                 @if (App::environment('local'))
-                    {{ $exception->getMessage() }}
+                    <h1>Nie znaleziono takiej strony</h1>
                 @else
                     not found
                 @endif

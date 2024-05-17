@@ -71,7 +71,7 @@
                     @forelse ($recentBids as $bid)
                         <tr>
                             <th scope="row">{{ $bid->id }}</th>
-                            <td>{{ $bid->announcement->brand }} {{ $bid->announcement->name }}</td>
+                            <td>{{ $bid->announcement->name }} {{ $bid->announcement->brand }}</td>
                             <td>{{ $bid->amount }} PLN</td>
                             <td>{{ $bid->time }}</td>
                         </tr>
@@ -101,11 +101,11 @@
                         <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
                     </div>
                     <div class="mb-3">
-                        <label for="exampleFormSelect1">Skontaktuj się z nami</label>
+                        <label for="exampleFormSelect1">Wybierz kategorię</label>
                         <select class="form-select" id="exampleFormControlSelect1">
-                            <option selected>indywidualna</option>
-                            <option>grupowa</option>
-                            <option>specjalna</option>
+                            <option selected>miejski</option>
+                            <option>terenowy</option>
+                            <option>sportowy</option>
                         </select>
                     </div>
                     <div class="mb-3">
@@ -127,6 +127,6 @@
         </div>
     </div>
 
-    @include('shared.footer', ['fixedBottom' => false])
+    @include('shared.footer', ['fixedBottom' => true])
 </body>
 </html>

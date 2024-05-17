@@ -28,4 +28,17 @@ class AnnouncementController extends Controller
         $car = Announcement::with('photos')->findOrFail($id);
         return view('cars.show', compact('car'));
     }
+    public function oferty(){
+        $cars = Announcement::with('photos')->get();
+        $randomCars = $cars->random(4);
+
+        // Pobierz ostatnio licytowane samochody
+        $recentBids = Bids::with('announcement')->orderBy('time', 'desc')->take(6)->get();
+
+        return view('cars.oferty', [
+            'cars' => $cars,
+            'randomCars' => $randomCars,
+            'recentBids' => $recentBids,
+        ]);
+    }
 }
