@@ -10,34 +10,36 @@ class AnnouncementController extends Controller
 {
     public function index()
     {
-        $cars = Announcement::with('photos')->get();
-        $randomCars = $cars->random(4);
+        $announcements = Announcement::with('photos')->get();
+        $randomAnnouncements = $announcements->random(4);
 
-        // Pobierz ostatnio licytowane samochody
+        // Pobierz ostatnio licytowane ogłoszenia
         $recentBids = Bids::with('announcement')->orderBy('time', 'desc')->take(5)->get();
 
         return view('cars.index', [
-            'cars' => $cars,
-            'randomCars' => $randomCars,
+            'announcements' => $announcements,
+            'randomAnnouncements' => $randomAnnouncements,
             'recentBids' => $recentBids,
         ]);
     }
 
     public function show($id)
     {
-        $car = Announcement::with('photos')->findOrFail($id);
-        return view('cars.show', compact('car'));
+        $announcement = Announcement::with('photos')->findOrFail($id);
+        return view('cars.show', compact('announcement'));
     }
-    public function oferty(){
-        $cars = Announcement::with('photos')->get();
-        $randomCars = $cars->random(4);
 
-        // Pobierz ostatnio licytowane samochody
+    public function oferty()
+    {
+        $announcements = Announcement::with('photos')->get();
+        $randomAnnouncements = $announcements->random(4);
+
+        // Pobierz ostatnio licytowane ogłoszenia
         $recentBids = Bids::with('announcement')->orderBy('time', 'desc')->take(6)->get();
 
         return view('cars.oferty', [
-            'cars' => $cars,
-            'randomCars' => $randomCars,
+            'announcements' => $announcements,
+            'randomAnnouncements' => $randomAnnouncements,
             'recentBids' => $recentBids,
         ]);
     }

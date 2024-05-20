@@ -14,6 +14,7 @@ Route::controller(UserController::class)->group(function(){
     Route::get('/user/{id}', 'user')->name('cars.user');
 });
 
+
 Route::controller(AnnouncementController::class)->group(function () {
     //Route::get('/trips/image-upload', 'imageUpload')->name('trips.image_upload');
     //Route::post('/trips/image-upload', 'imageUploadStore')->name('trips.image_upload.store');
