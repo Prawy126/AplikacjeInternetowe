@@ -1,10 +1,10 @@
 @include('shared.html')
 
-@include('shared.head', ['pageTitle' => 'Błąd 404'])
+@include('shared.head', ['pageTitle' => 'Błąd 403'])
 
 <style>
     body{
-        background-image: url('img/404.webp');
+        background-image: url('img/403.webp');
     }
 </style>
 
@@ -23,10 +23,10 @@
 
         <div class="row mt-4 mb-4 text-center card">
 
-            <h1 class="display-1 fw-bold">404</h1>
+            <h1 class="display-1 fw-bold">403</h1>
             <h2>
                 @if (App::environment('local'))
-                    <h1>Nie znaleziono takiej strony</h1>
+                    <h1>Nie posiadasz dostępu do tej strony</h1>
                 @else
                     not found
                 @endif

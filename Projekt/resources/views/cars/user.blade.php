@@ -53,14 +53,16 @@
                                 @foreach ($announcements as $announcement)
                                     <div class="col-md-6 mb-4">
                                         <div class="card">
-
                                             <div class="card-body">
                                                 <h3>Marka: {{ $announcement->name }}</h3>
                                                 <h3>Model: {{ $announcement->brand }}</h3>
-                                                <h3>Rok produkcji: {{$announcement->year}}</h3>
-                                                <a href="{{ route('cars.show', $announcement->id) }}"
-                                                    class="btn btn-primary">Edytuj</a>
-                                                    <a href="" class="btn btn-danger">Usuń</a>
+                                                <h3>Rok produkcji: {{ $announcement->year }}</h3>
+                                                <a href="{{ route('cars.edit', $announcement->id) }}" class="btn btn-primary">Edytuj</a>
+                                                <form action="{{ route('cars.destroy', $announcement->id) }}" method="POST" style="display:inline;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger container-fluid">Usuń</button>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>

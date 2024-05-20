@@ -10,28 +10,26 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::controller(UserController::class)->group(function(){
-    Route::get('/user/{id}', 'user')->name('cars.user');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/user/{id}', [UserController::class, 'user'])->name('cars.user');
+
+
+
+    Route::controller(PhotoController::class)->group(function () {
+
+    });
 });
-
-
 Route::controller(AnnouncementController::class)->group(function () {
-    //Route::get('/trips/image-upload', 'imageUpload')->name('trips.image_upload');
-    //Route::post('/trips/image-upload', 'imageUploadStore')->name('trips.image_upload.store');
-    Route::get('/home', 'index')->name('cars.index');
-    Route::get('/car/{id}', 'show')->name('cars.show');
-    //Route::get('/trips/{id}/edit', 'edit')->name('trips.edit');
-    Route::get('/oferty', 'oferty')->name('cars.oferty');
-    //Route::post('/trips/favourite', 'favourite')->name('trips.favourite');
-});
-
-Route::controller(PhotoController::class)->group(function () {
-   // Route::get('/car/{id}', 'show')->name('cars.show');
-});
+        Route::get('/home', 'index')->name('cars.index');
+        Route::get('/car/{id}', 'show')->name('cars.show');
+        Route::get('/car/{id}/edit', 'edit')->name('cars.edit');
+        Route::put('/car/{id}', 'update')->name('announcements.update');
+        Route::get('/oferty', 'oferty')->name('cars.oferty');
+        Route::delete('/announcement/{id}', 'destroy')->name('cars.destroy');
+    });
 
 Route::controller(AuthController::class)->group(function () {
     Route::get('/auth/login', 'login')->name('login');
     Route::post('/auth/login', 'authenticate')->name('login.authenticate');
     Route::get('/auth/logout', 'logout')->name('logout');
 });
-

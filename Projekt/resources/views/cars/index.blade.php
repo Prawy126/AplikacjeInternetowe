@@ -39,7 +39,11 @@
             @forelse ($randomCars as $car)
                 <div class="col-12 col-sm-6 col-lg-3">
                     <div class="card">
-                        <img src="{{ asset('img/'.$car->randomPhoto()->photo_name) }}" class="card-img-top" alt="{{ $car->name }}">
+                        @if($car->photos->isNotEmpty())
+                            <img src="{{ asset('img/'.$car->photos->first()->photo_name) }}" class="card-img-top" alt="{{ $car->name }}">
+                        @else
+                            <img src="{{ asset('img/default.png') }}" class="card-img-top" alt="Default Image">
+                        @endif
                         <div class="card-body">
                             <h5 class="card-title">{{ $car->name }}</h5>
                             <p class="card-text">{{ $car->description }}</p>
