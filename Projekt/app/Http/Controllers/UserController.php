@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
+    public $timestamps = false;
+
     public function user($id)
     {
             if (Auth::check() && Auth::id() == $id) {

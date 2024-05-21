@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -19,6 +20,19 @@ Route::middleware(['auth'])->group(function () {
 
     });
 });
+
+
+Route::prefix('admin')->middleware('auth')->group(function () {
+    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+    Route::get('/user/edit/{id}', [AdminController::class, 'editUser'])->name('admin.editUser');
+    Route::put('/user/update/{id}', [AdminController::class, 'updateUser'])->name('admin.updateUser'); // Dodaj tę trasę
+    Route::delete('/user/delete/{id}', [AdminController::class, 'deleteUser'])->name('admin.deleteUser');
+    Route::get('/announcement/edit/{id}', [AdminController::class, 'editAnnouncement'])->name('admin.editAnnouncement');
+    Route::put('/announcement/update/{id}', [AdminController::class, 'updateAnnouncement'])->name('admin.updateAnnouncement'); // Dodaj tę trasę
+    Route::delete('/announcement/delete/{id}', [AdminController::class, 'deleteAnnouncement'])->name('admin.deleteAnnouncement');
+});
+
+
 Route::controller(AnnouncementController::class)->group(function () {
         Route::get('/home', 'index')->name('cars.index');
         Route::get('/car/{id}', 'show')->name('cars.show');

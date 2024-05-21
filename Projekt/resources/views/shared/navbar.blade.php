@@ -18,6 +18,13 @@
                         <a class="nav-link" href="{{ route('logout') }}"> Moje Aukcje</a>
                     </li>
                 @endif
+                @if (Auth::check())
+                    @if (Auth::user()->role == 'admin')
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('admin.dashboard') }}"> Moje Aukcje</a>
+                        </li>
+                    @endif
+                @endif
             </ul>
             <ul id="navbar-user" class="navbar-nav mb-2 mb-lg-0">
                 <li class="pr-5">
