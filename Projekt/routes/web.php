@@ -13,12 +13,13 @@ Route::get('/', function () {
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/user/{id}', [UserController::class, 'user'])->name('cars.user');
-
-
-
     Route::controller(PhotoController::class)->group(function () {
 
     });
+});
+
+Route::middleware(['auth'])->group(function () {
+    Route::resource('announcements', AnnouncementController::class);
 });
 
 

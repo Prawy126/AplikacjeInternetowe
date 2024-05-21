@@ -55,7 +55,7 @@ class User extends Authenticatable
         return $this->hasMany(Announcement::class);
     }
 
-    public function histories(): BelongsTo
+    public function bids(): BelongsTo
     {
         return $this->belongsTo(Bids::class);
     }

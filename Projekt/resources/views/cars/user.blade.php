@@ -41,7 +41,7 @@
                 </div>
 
                 <!-- Karta ogłoszeń -->
-                <div class="card">
+                <div class="card mb-4">
                     <div class="card-header bg-secondary text-white">
                         <h2>Moje ogłoszenia</h2>
                     </div>
@@ -57,11 +57,14 @@
                                                 <h3>Marka: {{ $announcement->name }}</h3>
                                                 <h3>Model: {{ $announcement->brand }}</h3>
                                                 <h3>Rok produkcji: {{ $announcement->year }}</h3>
-                                                <a href="{{ route('cars.edit', $announcement->id) }}" class="btn btn-primary">Edytuj</a>
-                                                <form action="{{ route('cars.destroy', $announcement->id) }}" method="POST" style="display:inline;">
+                                                <a href="{{ route('cars.edit', $announcement->id) }}"
+                                                    class="btn btn-primary">Edytuj</a>
+                                                <form action="{{ route('cars.destroy', $announcement->id) }}"
+                                                    method="POST" style="display:inline;">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger container-fluid">Usuń</button>
+                                                    <button type="submit"
+                                                        class="btn btn-danger container-fluid">Usuń</button>
                                                 </form>
                                             </div>
                                         </div>
@@ -71,8 +74,55 @@
                         @endif
                     </div>
                 </div>
+                <!-- Karta dodania ogłoszenia -->
+                <!-- Karta dodania ogłoszenia -->
+                <div class="card mb-4">
+                    <div class="card-header bg-success text-white">
+                        <h2>Dodaj nowe ogłoszenie</h2>
+                    </div>
+                    <div class="card-body">
+                        <form action="{{ route('announcements.store') }}" method="POST">
+                            @csrf
+                            <div class="mb-3">
+                                <label for="carName" class="form-label">Marka</label>
+                                <input type="text" class="form-control" id="carName" name="name" placeholder="Wprowadź markę samochodu" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="carBrand" class="form-label">Model</label>
+                                <input type="text" class="form-control" id="carBrand" name="brand" placeholder="Wprowadź model samochodu" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="carYear" class="form-label">Rok produkcji</label>
+                                <input type="number" class="form-control" id="carYear" name="year" placeholder="Wprowadź rok produkcji" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="carMileage" class="form-label">Przebieg (km)</label>
+                                <input type="number" class="form-control" id="carMileage" name="mileage" placeholder="Wprowadź przebieg samochodu" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="carDescription" class="form-label">Opis</label>
+                                <textarea class="form-control" id="carDescription" name="description" rows="3" placeholder="Dodaj opis samochodu"></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="carEndDate" class="form-label">Data zakończenia</label>
+                                <input type="date" class="form-control" id="carEndDate" name="end_date" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="carMinPrice" class="form-label">Cena minimalna (PLN)</label>
+                                <input type="number" class="form-control" id="carMinPrice" name="min_price" placeholder="Wprowadź cenę minimalną" step="0.01" required>
+                            </div>
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-success">Dodaj ogłoszenie</button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
     @include('shared.footer')
 </body>
+
+</html>

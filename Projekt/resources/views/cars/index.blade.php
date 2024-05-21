@@ -47,7 +47,7 @@
                         <div class="card-body">
                             <h5 class="card-title">{{ $car->name }}</h5>
                             <p class="card-text">{{ $car->description }}</p>
-                            <a href="{{ route('cars.show', ['id' => $car->id]) }}" class="btn btn-primary">Więcej szczegółów...</a>
+                            <a href="{{ route('cars.show', ['id' => $car->id]) }}" class="btn btn-primary mt-auto">Więcej szczegółów...</a>
                         </div>
                     </div>
                 </div>
@@ -120,11 +120,11 @@
                         </div>
                     </div>
                     <div class="mb-3">
-                        <label for="exampleFormControlTextarea1">Komentarz</label>
+                        <label for="exampleFormControlTextarea1">Więcej informacji</label>
                         <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
                     </div>
                     <div class="mb-3 d-flex justify-content-center">
-                        <a href="#" class="btn btn-primary">Wyślij</a>
+                        <button type="submit" class="btn btn-primary">Wyślij</button>
                     </div>
                 </form>
             </div>

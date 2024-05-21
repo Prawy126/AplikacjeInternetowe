@@ -21,7 +21,7 @@
                                 @endforeach
                             @else
                                 <div class="carousel-item active">
-                                    <img src="{{ asset('img/default.jpg') }}" class="d-block w-100" alt="Brak zdjęć">
+                                    <img src="{{ asset('img/samochod1.png') }}" class="d-block w-100" alt="Brak zdjęć">
                                 </div>
                             @endif
                         </div>

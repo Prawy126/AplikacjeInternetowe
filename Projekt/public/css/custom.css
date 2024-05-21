@@ -2,12 +2,12 @@
 
 .card-img-top {
     width: 100%;
-    height: 200px; /* Stała wysokość obrazów */
+    height: 200px;
     object-fit: cover; /* Przycięcie obrazów */
 }
 
 .card-body {
-    min-height: 200px; /* Minimalna wysokość kart */
+    min-height: 200px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -15,7 +15,7 @@
 }
 
 .card-footer {
-    min-height: 10px; /* Minimalna wysokość stopki kart */
+    min-height: 10px;
 }
 
 .col-12{
@@ -23,4 +23,100 @@
     margin-bottom: 5px;
 }
 
+.navbar {
+    background: linear-gradient(135deg, #007bff, #0056b3); /* Gradient tła */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #fff;
+}
+
+.navbar-nav .nav-link {
+    color: #fff; /* Kolor linków */
+    margin-right: 1rem;
+
+}
+
+.navbar-nav .nav-link:hover {
+    color: #d4d4d4;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+}
+
+.navbar-toggler {
+    border: none;
+}
+
+
+.navbar-collapse {
+    justify-content: flex-end; /* Wyrównanie linków do prawej */
+}
+.card {
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 15px;
+    overflow: hidden; /* Ukrycie nadmiarowych elementów */
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.card-img-top {
+    width: 100%;
+    height: 200px;
+    object-fit: cover; /* Przycięcie obrazów */
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.card-body {
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 15px;
+
+}
+
+.card-title {
+    font-weight: bold;
+}
+
+.card-text {
+    flex-grow: 1; /* Wypełnienie dostępnej przestrzeni */
+
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+    transition: background-color 0.3s ease;
+    border-radius: 50px;
+    padding: 10px 20px;
+}
+
+.btn-primary:hover {
+    margin:5px;
+    background-color: #0056b3;
+}
+
+.col-12 {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.btn-danger{
+    margin:5px;
+    border-radius: 50px;
+}
+
+.btn-danger:hover{
+    background-color: rgb(246, 3, 3);
+}
 

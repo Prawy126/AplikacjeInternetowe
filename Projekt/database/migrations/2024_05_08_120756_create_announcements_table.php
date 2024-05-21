@@ -18,15 +18,17 @@ return new class extends Migration
     {
         Schema::create('announcements', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(User::class)->constrained();
-            $table->string('name',30);
-            $table->string('brand',30);
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->string('name', 30);
+            $table->string('brand', 30);
             $table->integer('year');
-            $table->double('mileage');
+            $table->integer('mileage');
             $table->text('description')->nullable();
             $table->date('end_date');
-            $table->decimal('min_price', 8,2);
+            $table->decimal('min_price', 10, 2);
+            $table->timestamps();
         });
+
     }
 
     /**

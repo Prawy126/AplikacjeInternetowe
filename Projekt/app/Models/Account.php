@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Account extends Model
 {
+    /*
     use HasFactory;
 
     protected $fillable = ['name', 'surname', 'address', 'number_phone', 'email'];
@@ -22,5 +23,5 @@ class Account extends Model
     public function histories(): HasMany
     {
         return $this->hasMany(History::class);
-    }
+    }*/
 }

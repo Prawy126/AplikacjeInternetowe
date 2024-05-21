@@ -65,8 +65,18 @@ class AdminController extends Controller
     public function deleteUser($id)
     {
         $user = User::findOrFail($id);
-        $user->announcements()->delete(); // Usuń powiązane ogłoszenia
-        $user->delete(); // Usuń użytkownika
+
+        // Usuń powiązane rekordy w tabeli bids dla każdego ogłoszenia
+        foreach ($user->announcements as $announcement) {
+            $announcement->bids()->delete();
+            $announcement->photos()->delete();
+        }
+
+        // Usuń powiązane ogłoszenia
+        $user->announcements()->delete();
+
+        // Usuń użytkownika
+        $user->delete();
 
         return redirect()->route('admin.dashboard')->with('success', 'Użytkownik został usunięty.');
     }
@@ -74,6 +84,14 @@ class AdminController extends Controller
     public function deleteAnnouncement($id)
     {
         $announcement = Announcement::findOrFail($id);
+
+        // Usuń powiązane zdjęcia
+        $announcement->photos()->delete();
+
+        // Usuń powiązane rekordy w tabeli bids
+        $announcement->bids()->delete();
+
+        // Usuń ogłoszenie
         $announcement->delete();
 
         return redirect()->route('admin.dashboard')->with('success', 'Ogłoszenie zostało usunięte.');

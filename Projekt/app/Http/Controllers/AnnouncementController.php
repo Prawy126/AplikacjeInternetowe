@@ -10,10 +10,19 @@ class AnnouncementController extends Controller
 {
     public function index()
     {
+        $liczba = Announcement::all();
+        $liczba = $liczba -> count();
         $announcements = Announcement::with('photos')->get();
-        $randomAnnouncements = $announcements->random(4);
+
         $cars = Announcement::with('photos')->get();
-        $randomCars = $cars->random(4);
+        if ($liczba >= 4) {
+            $randomAnnouncements = $cars->random(4);
+            $randomCars = $cars->random(4);
+        } else {
+            $randomAnnouncements = $cars; // Zwróć wszystkie dostępne samochody, jeśli jest ich mniej niż 4
+            $randomCars = $cars;
+        }
+
         $recentBids = Bids::with('announcement')->orderBy('time', 'desc')->take(5)->get();
 
         return view('cars.index', [
@@ -31,8 +40,18 @@ class AnnouncementController extends Controller
     }
 
     public function oferty(){
+
+        $liczba = Announcement::all();
+        $liczba = $liczba -> count();
         $cars = Announcement::with('photos')->get();
-        $randomCars = $cars->random(4);
+        $cars = Announcement::with('photos')->get();
+        if ($liczba >= 4) {
+
+            $randomCars = $cars->random(4);
+        } else {
+
+            $randomCars = $cars;
+        }
 
         // Pobierz ostatnio licytowane samochody
         $recentBids = Bids::with('announcement')->orderBy('time', 'desc')->take(6)->get();
@@ -100,4 +119,31 @@ public function update(Request $request, $id)
 
         return redirect()->route('cars.index')->with('success', 'Ogłoszenie zostało zaktualizowane.');
     }
+
+    public function create()
+    {
+        return view('announcements.create');
+    }
+
+    public function store(Request $request)
+    {
+        // Dodaj debugowanie, aby sprawdzić wartości przekazywane do metody
+        //dd($request->all());
+
+        //dd($request);
+
+        Announcement::create([
+            'user_id' => auth()->id(),
+            'name' => $request->name,
+            'brand' => $request->brand,
+            'year' => $request->year,
+            'mileage' => $request->mileage,
+            'description' => $request->description,
+            'end_date' => $request->end_date,
+            'min_price' => $request->min_price,
+        ]);
+
+        return redirect()->route('announcements.index')->with('success', 'Ogłoszenie zostało dodane.');
+    }
+
 }
