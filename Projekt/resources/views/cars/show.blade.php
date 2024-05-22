@@ -1,27 +1,27 @@
 @include('shared.html')
 
-@include('shared.head', ['pageTitle' => 'Samochód: '.$car->name])
+@include('shared.head', ['pageTitle' => 'Samochód: '.$announcement->name])
 <body>
     @include('shared.navbar')
 
     <div id="wycieczki" class="container mt-5 mb-5">
         <div class="row m-2 text-center">
-            <h1>{{ $car->name . ' ' . $car->brand }}</h1>
+            <h1>{{ $announcement->name . ' ' . $announcement->brand }}</h1>
         </div>
         <div class="row d-flex justify-content-center">
             <div class="col-12 col-sm-6 col-lg-6">
                 <div class="card">
                     <div id="carPhotosCarousel" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner">
-                            @if ($car->photos->isNotEmpty())
-                                @foreach($car->photos as $key => $photo)
+                            @if ($announcement->photos->isNotEmpty())
+                                @foreach($announcement->photos as $key => $photo)
                                     <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
-                                        <img src="{{ asset('img/'.$photo->photo_name) }}" class="d-block w-100" alt="{{ $car->name }}">
+                                        <img src="{{ asset('img/'.$photo->photo_name) }}" class="d-block w-100" alt="{{ $announcement->name }}">
                                     </div>
                                 @endforeach
                             @else
                                 <div class="carousel-item active">
-                                    <img src="{{ asset('img/samochod1.png') }}" class="d-block w-100" alt="Brak zdjęć">
+                                    <img src="{{ asset('img/brak.webp') }}" class="d-block w-100" alt="Brak zdjęć">
                                 </div>
                             @endif
                         </div>
@@ -35,20 +35,42 @@
                         </button>
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title">{{ $car->name . ' ' . $car->brand }}</h5>
+                        <h5 class="card-title">{{ $announcement->name . ' ' . $announcement->brand }}</h5>
                         <h4>Opis:</h4>
-                        <p class="card-text">{{ $car->description }}</p>
+                        <p class="card-text">{{ $announcement->description }}</p>
                         <h4>Rok produkcji:</h4>
-                        <p>{{ $car->year }}</p>
+                        <p>{{ $announcement->year }}</p>
                         <h4>Przebieg:</h4>
-                        <p>{{ $car->mileage . ' km' }}</p>
+                        <p>{{ $announcement->mileage . ' km' }}</p>
                         <h4>Data końca licytacji:</h4>
-                        <p>{{ $car->end_date }}</p>
+                        <p>{{ $announcement->end_date }}</p>
                     </div>
                     <div class="card-footer text-center">
-                        <h5 class="card-title">{{ $car->min_price }} zł</h5>
-                        <a href="#" class="btn btn-primary">Licytuj</a>
-                        @if(!empty($promoPrice) && $promoPrice != $car->min_price)
+                        <h5 class="card-title">Cena minimalna: {{ $announcement->min_price }} zł</h5>
+                        @if($highestBid)
+                            <h5 class="card-title">Aktualnie oferowana cena: {{ $highestBid->amount }} zł</h5>
+                        @else
+                            <h5 class="card-title">Aktualnie brak ofert</h5>
+                        @endif
+
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+
+                        <form action="{{ route('bids.store', $announcement->id) }}" method="POST">
+                            @csrf
+                            <div class="mb-3">
+                                <input type="number" name="amount" class="form-control" placeholder="Wpisz kwotę licytacji">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Licytuj</button>
+                        </form>
+                        @if(!empty($promoPrice) && $promoPrice != $announcement->min_price)
                             <h5 class="card-title">{{ $promoPrice }} zł</h5>
                         @endif
                     </div>
@@ -57,6 +79,6 @@
         </div>
     </div>
 
-    @include('shared.footer')
+    @include('shared.footer', ['fixedBottom' => true])
 </body>
 </html>

@@ -12,14 +12,14 @@
                 </li>
                 @if (Auth::check())
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('cars.user', Auth::user()->id) }}"> Konto</a>
+                        <a class="nav-link active" href="{{ route('cars.user', Auth::user()->id) }}"> Konto</a>
                     </li>
 
                 @endif
                 @if (Auth::check())
                     @if (Auth::user()->role == 'admin')
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('admin.dashboard') }}">Panel admina</a>
+                            <a class="nav-link active" href="{{ route('admin.dashboard') }}">Panel admina</a>
                         </li>
                     @endif
                 @endif
@@ -27,19 +27,19 @@
             <ul id="navbar-user" class="navbar-nav mb-2 mb-lg-0">
                 <li class="pr-5">
                     <button class="nav-link" onclick="themeToggle()">
-                        <i class="bi bi-toggle-on"></i>
+                        <i class="bi bi-toggle-on active"></i>
                     </button>
                 </li>
                 @if (Auth::check())
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('cars.user', Auth::user()->id) }}"> {{Auth::user()->name}}</a>
+                        <a class="nav-link active" href="{{ route('cars.user', Auth::user()->id) }}"> {{Auth::user()->name}}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('logout') }}">wyloguj się</a>
+                        <a class="nav-link active" href="{{ route('logout') }}">Wyloguj się</a>
                     </li>
                 @else
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('login') }}">Zaloguj się</a>
+                        <a class="nav-link active " href="{{ route('login') }}">Zaloguj się</a>
                     </li>
                 @endif
             </ul>

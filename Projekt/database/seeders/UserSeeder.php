@@ -26,7 +26,7 @@ class UserSeeder extends Seeder
             'email' => 'michal2@mail.com',
             'password' => Hash::make('1234'),
             'address' => 'Ulica',
-            'phone_number' => 1234132,
+            'phone_number' => 123415092,
             'role' => 'user'
         ],
         [
@@ -35,7 +35,7 @@ class UserSeeder extends Seeder
             'email' => 'nowak@mail.com',
             'password' => Hash::make('1234'),
             'address' => 'Ulica',
-            'phone_number' => 123413312,
+            'phone_number' => 123413359,
             'role' => 'user'
         ],
         [
@@ -44,8 +44,18 @@ class UserSeeder extends Seeder
             'email' => 'admin@mail.com',
             'password' => Hash::make('1234'),
             'address' => 'Admin',
-            'phone_number' => 123413312,
+            'phone_number' => 123413343,
             'role' => 'admin'
+        ],
+
+        [
+            'name' => 'Maciej',
+            'surname' => 'Kowalski',
+            'email' => 'kowal@mail.com',
+            'password' => Hash::make('1234'),
+            'address' => 'Dobra 6',
+            'phone_number' => 123413323,
+            'role' => 'user'
         ],
 
     ]);

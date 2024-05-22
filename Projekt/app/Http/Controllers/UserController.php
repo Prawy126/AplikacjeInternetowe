@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Announcement;
-use Illuminate\Http\Request;
+use App\Models\Bids;
+
 use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
@@ -13,17 +14,39 @@ class UserController extends Controller
 
     public function user($id)
     {
-            if (Auth::check() && Auth::id() == $id) {
-                $user = User::find($id);
-                if (!$user) {
-                    abort(403); // Jeśli użytkownik nie zostanie znaleziony, wyświetl stronę 403
-                }
-                $announcements = Announcement::with('photos')->where('user_id', $id)->get();
-
-                return view('cars.user', compact('user', 'announcements'));
-            } else {
-                abort(403); // Jeśli użytkownik nie jest zalogowany lub nie jest właścicielem profilu, wyświetl stronę 403
+        if (Auth::check() && Auth::id() == $id) {
+            $user = User::find($id);
+            if (!$user) {
+                abort(403);
             }
 
+            $announcements = Announcement::with('photos')->where('user_id', $id)->get();
+
+            $participatingAuctions = Bids::where('user_id', $user->id)
+                ->with(['announcement' => function($query) {
+                    $query->with('bids');
+                }])
+                ->get()
+                ->groupBy('announcement_id')
+                ->map(function ($bids) {
+                    return $bids->sortByDesc('amount')->first();
+                });
+
+            return view('cars.user', compact('user', 'announcements', 'participatingAuctions'));
+        } else {
+            abort(403);
+        }
+    }
+
+    public function show($id)
+    {
+        $user = User::findOrFail($id);
+        $announcements = $user->announcements->load('bids');
+
+        foreach ($announcements as $announcement) {
+            $announcement->highest_bid = $announcement->bids->where('user_id', $user->id)->sortByDesc('amount')->first();
+        }
+
+        return view('user.show', compact('user', 'announcements'));
     }
 }

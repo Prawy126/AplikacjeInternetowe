@@ -6,6 +6,7 @@ use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\BidsController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -48,3 +49,5 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('/auth/login', 'authenticate')->name('login.authenticate');
     Route::get('/auth/logout', 'logout')->name('logout');
 });
+
+Route::post('/announcements/{announcement}/bids', [BidsController::class, 'store'])->name('bids.store');

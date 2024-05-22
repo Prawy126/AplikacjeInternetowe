@@ -66,16 +66,15 @@ class AdminController extends Controller
     {
         $user = User::findOrFail($id);
 
-        // Usuń powiązane rekordy w tabeli bids dla każdego ogłoszenia
+
         foreach ($user->announcements as $announcement) {
             $announcement->bids()->delete();
             $announcement->photos()->delete();
         }
 
-        // Usuń powiązane ogłoszenia
+
         $user->announcements()->delete();
 
-        // Usuń użytkownika
         $user->delete();
 
         return redirect()->route('admin.dashboard')->with('success', 'Użytkownik został usunięty.');
@@ -85,13 +84,13 @@ class AdminController extends Controller
     {
         $announcement = Announcement::findOrFail($id);
 
-        // Usuń powiązane zdjęcia
+
         $announcement->photos()->delete();
 
-        // Usuń powiązane rekordy w tabeli bids
+
         $announcement->bids()->delete();
 
-        // Usuń ogłoszenie
+
         $announcement->delete();
 
         return redirect()->route('admin.dashboard')->with('success', 'Ogłoszenie zostało usunięte.');

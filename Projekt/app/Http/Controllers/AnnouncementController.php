@@ -5,38 +5,54 @@ namespace App\Http\Controllers;
 use App\Models\Announcement;
 use App\Models\Bids;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AnnouncementController extends Controller
 {
     public function index()
     {
-        $liczba = Announcement::all();
-        $liczba = $liczba -> count();
+
+        $liczba = Announcement::count();
+
         $announcements = Announcement::with('photos')->get();
 
-        $cars = Announcement::with('photos')->get();
         if ($liczba >= 4) {
-            $randomAnnouncements = $cars->random(4);
-            $randomCars = $cars->random(4);
+            $randomAnnouncements = $announcements->random(4);
+            $randomCars = $randomAnnouncements;
         } else {
-            $randomAnnouncements = $cars; // Zwróć wszystkie dostępne samochody, jeśli jest ich mniej niż 4
-            $randomCars = $cars;
+            $randomAnnouncements = $announcements;
+            $randomCars = $announcements;
         }
 
         $recentBids = Bids::with('announcement')->orderBy('time', 'desc')->take(5)->get();
+
+        $participatingAuctions = Announcement::whereHas('bids', function ($query) {
+            $query->where('user_id', Auth::id());
+        })->with(['bids' => function ($query) {
+            $query->where('user_id', Auth::id())->latest();
+        }])->get();
 
         return view('cars.index', [
             'announcements' => $announcements,
             'randomAnnouncements' => $randomAnnouncements,
             'recentBids' => $recentBids,
             'randomCars' => $randomCars,
+            'participatingAuctions' => $participatingAuctions,
         ]);
     }
 
+
     public function show($id)
     {
+        $announcement = Announcement::with('bids')->findOrFail($id);
+        $highestBid = $announcement->bids()->orderBy('amount', 'desc')->first();
+
         $car = Announcement::with('photos')->findOrFail($id);
-        return view('cars.show', compact('car'));
+        return view('cars.show',[
+            'car' => $car,
+            'highestBid' => $highestBid,
+            'announcement' => $announcement
+        ]);
     }
 
     public function oferty(){
@@ -53,7 +69,6 @@ class AnnouncementController extends Controller
             $randomCars = $cars;
         }
 
-        // Pobierz ostatnio licytowane samochody
         $recentBids = Bids::with('announcement')->orderBy('time', 'desc')->take(6)->get();
 
         return view('cars.oferty', [
@@ -66,11 +81,9 @@ class AnnouncementController extends Controller
     public function destroy($id)
 {
     $announcement = Announcement::findOrFail($id);
-    // Usunięcie powiązanych rekordów z tabeli `bids`
-    $announcement->histories()->delete();
-    // Usunięcie powiązanych rekordów z tabeli `photos`
+
     $announcement->photos()->delete();
-    // Usunięcie ogłoszenia
+
     $announcement->delete();
 
     return redirect()->route('cars.user')->with('success', 'Ogłoszenie zostało usunięte.');
@@ -84,7 +97,7 @@ public function edit($id)
 
 public function update(Request $request, $id)
     {
-        // Walidacja danych wejściowych
+
         $request->validate([
             'name' => 'required|string|max:30',
             'brand' => 'required|string|max:30',
@@ -113,7 +126,6 @@ public function update(Request $request, $id)
             'min_price.min' => 'Pole Cena nie może być mniejsze niż 100.',
         ]);
 
-        // Znalezienie ogłoszenia i aktualizacja danych
         $announcement = Announcement::findOrFail($id);
         $announcement->update($request->all());
 
@@ -127,7 +139,6 @@ public function update(Request $request, $id)
 
     public function store(Request $request)
     {
-        // Dodaj debugowanie, aby sprawdzić wartości przekazywane do metody
         //dd($request->all());
 
         //dd($request);

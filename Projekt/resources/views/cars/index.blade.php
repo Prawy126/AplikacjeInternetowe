@@ -42,7 +42,7 @@
                         @if($car->photos->isNotEmpty())
                             <img src="{{ asset('img/'.$car->photos->first()->photo_name) }}" class="card-img-top" alt="{{ $car->name }}">
                         @else
-                            <img src="{{ asset('img/default.png') }}" class="card-img-top" alt="Default Image">
+                            <img src="{{ asset('img/brak.webp') }}" class="card-img-top" alt="Default Image">
                         @endif
                         <div class="card-body">
                             <h5 class="card-title">{{ $car->name }}</h5>

@@ -74,7 +74,7 @@
                         @endif
                     </div>
                 </div>
-                <!-- Karta dodania ogłoszenia -->
+
                 <!-- Karta dodania ogłoszenia -->
                 <div class="card mb-4">
                     <div class="card-header bg-success text-white">
@@ -85,19 +85,23 @@
                             @csrf
                             <div class="mb-3">
                                 <label for="carName" class="form-label">Marka</label>
-                                <input type="text" class="form-control" id="carName" name="name" placeholder="Wprowadź markę samochodu" required>
+                                <input type="text" class="form-control" id="carName" name="name"
+                                    placeholder="Wprowadź markę samochodu" required>
                             </div>
                             <div class="mb-3">
                                 <label for="carBrand" class="form-label">Model</label>
-                                <input type="text" class="form-control" id="carBrand" name="brand" placeholder="Wprowadź model samochodu" required>
+                                <input type="text" class="form-control" id="carBrand" name="brand"
+                                    placeholder="Wprowadź model samochodu" required>
                             </div>
                             <div class="mb-3">
                                 <label for="carYear" class="form-label">Rok produkcji</label>
-                                <input type="number" class="form-control" id="carYear" name="year" placeholder="Wprowadź rok produkcji" required>
+                                <input type="number" class="form-control" id="carYear" name="year"
+                                    placeholder="Wprowadź rok produkcji" required>
                             </div>
                             <div class="mb-3">
                                 <label for="carMileage" class="form-label">Przebieg (km)</label>
-                                <input type="number" class="form-control" id="carMileage" name="mileage" placeholder="Wprowadź przebieg samochodu" required>
+                                <input type="number" class="form-control" id="carMileage" name="mileage"
+                                    placeholder="Wprowadź przebieg samochodu" required>
                             </div>
                             <div class="mb-3">
                                 <label for="carDescription" class="form-label">Opis</label>
@@ -109,20 +113,49 @@
                             </div>
                             <div class="mb-3">
                                 <label for="carMinPrice" class="form-label">Cena minimalna (PLN)</label>
-                                <input type="number" class="form-control" id="carMinPrice" name="min_price" placeholder="Wprowadź cenę minimalną" step="0.01" required>
+                                <input type="number" class="form-control" id="carMinPrice" name="min_price"
+                                    placeholder="Wprowadź cenę minimalną" step="0.01" required>
                             </div>
                             <div class="d-grid">
                                 <button type="submit" class="btn btn-success">Dodaj ogłoszenie</button>
                             </div>
                         </form>
+                    </div>
+                </div>
 
+                <!-- Karta aukcji, w których użytkownik bierze udział -->
+                <div class="card mb-4">
+                    <div class="card-header bg-info text-white">
+                        <h2>Aukcje, w których biorę udział</h2>
+                    </div>
+                    <div class="card-body">
+                        @if ($participatingAuctions->isEmpty())
+                            <p>Nie bierzesz udziału w żadnych aukcjach.</p>
+                        @else
+                            <div class="row">
+                                @foreach ($participatingAuctions as $auction)
+                                    <div class="col-md-6 mb-4">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h3>Marka: {{ $auction->announcement->name }}</h3>
+                                                <h3>Model: {{ $auction->announcement->brand }}</h3>
+                                                <h3>Rok produkcji: {{ $auction->announcement->year }}</h3>
+                                                <p>Data końca licytacji: {{ $auction->announcement->end_date }}</p>
+                                                <p>Najwyższa oferta użytkownika: {{ $auction->amount }}</p>
+                                                <a class="btn btn-primary" href="{{ route('cars.show' ,[ $auction->announcement->id])}}">Przeglądaj</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                        @endif
                     </div>
                 </div>
 
             </div>
         </div>
     </div>
-    @include('shared.footer')
+    @include('shared.footer', ['fixedBottom' => true])
 </body>
 
 </html>
