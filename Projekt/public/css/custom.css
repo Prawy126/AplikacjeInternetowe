@@ -120,3 +120,7 @@
     background-color: rgb(246, 3, 3);
 }
 
+.card-body{
+    margin-bottom: 40px;
+}
+

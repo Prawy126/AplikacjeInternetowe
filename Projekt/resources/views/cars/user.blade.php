@@ -60,7 +60,7 @@
                                                 <a href="{{ route('cars.edit', $announcement->id) }}"
                                                     class="btn btn-primary">Edytuj</a>
                                                 <form action="{{ route('cars.destroy', $announcement->id) }}"
-                                                    method="POST" style="display:inline;">
+                                                    method="POST" >
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit"
@@ -109,7 +109,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="carEndDate" class="form-label">Data zakończenia</label>
-                                <input type="date" class="form-control" id="carEndDate" name="end_date" required>
+                                <input type="datetime" class="form-control" id="carEndDate" name="end_date" required>
                             </div>
                             <div class="mb-3">
                                 <label for="carMinPrice" class="form-label">Cena minimalna (PLN)</label>

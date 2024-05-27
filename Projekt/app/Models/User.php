@@ -57,7 +57,7 @@ class User extends Authenticatable
 
     public function bids(): BelongsTo
     {
-        return $this->belongsTo(Bids::class);
+        return $this->belongsTo(Bid::class);
     }
 
 }

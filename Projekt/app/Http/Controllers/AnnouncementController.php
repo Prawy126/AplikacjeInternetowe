@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Announcement;
+use App\Models\Bid;
 use App\Models\Bids;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -24,7 +25,7 @@ class AnnouncementController extends Controller
             $randomCars = $announcements;
         }
 
-        $recentBids = Bids::with('announcement')->orderBy('time', 'desc')->take(5)->get();
+        $recentBids = Bid::with('announcement')->orderBy('time', 'desc')->take(5)->get();
 
         $participatingAuctions = Announcement::whereHas('bids', function ($query) {
             $query->where('user_id', Auth::id());
@@ -44,16 +45,26 @@ class AnnouncementController extends Controller
 
     public function show($id)
     {
-        $announcement = Announcement::with('bids')->findOrFail($id);
-        $highestBid = $announcement->bids()->orderBy('amount', 'desc')->first();
+        $announcement = Announcement::with(['bids' => function($query) {
+            $query->orderBy('amount', 'desc')->with('user');
+        }, 'photos'])->findOrFail($id);
 
-        $car = Announcement::with('photos')->findOrFail($id);
-        return view('cars.show',[
-            'car' => $car,
+        $currentDateTime = now();
+
+        if ($announcement->end_date < $currentDateTime) {
+            $announcement->is_end = true;
+            $announcement->save();
+        }
+
+        $highestBid = $announcement->bids->first();
+
+        return view('cars.show', [
+            'car' => $announcement,
             'highestBid' => $highestBid,
             'announcement' => $announcement
         ]);
     }
+
 
     public function oferty(){
 
@@ -69,7 +80,7 @@ class AnnouncementController extends Controller
             $randomCars = $cars;
         }
 
-        $recentBids = Bids::with('announcement')->orderBy('time', 'desc')->take(6)->get();
+        $recentBids = Bid::with('announcement')->orderBy('time', 'desc')->take(6)->get();
 
         return view('cars.oferty', [
             'cars' => $cars,
@@ -79,15 +90,15 @@ class AnnouncementController extends Controller
     }
 
     public function destroy($id)
-{
-    $announcement = Announcement::findOrFail($id);
+    {
+        $announcement = Announcement::findOrFail($id);
 
-    $announcement->photos()->delete();
+        $announcement->photos()->delete();
+        $announcement->delete();
 
-    $announcement->delete();
+        return redirect()->route('cars.user', ['id' => auth()->user()->id])->with('success', 'Ogłoszenie zostało usunięte.');
+    }
 
-    return redirect()->route('cars.user')->with('success', 'Ogłoszenie zostało usunięte.');
-}
 
 public function edit($id)
 {
@@ -151,6 +162,7 @@ public function update(Request $request, $id)
             'mileage' => $request->mileage,
             'description' => $request->description,
             'end_date' => $request->end_date,
+            'is_end'=>false,
             'min_price' => $request->min_price,
         ]);
 

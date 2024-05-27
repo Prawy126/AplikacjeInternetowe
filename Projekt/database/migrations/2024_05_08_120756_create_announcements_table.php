@@ -24,7 +24,8 @@ return new class extends Migration
             $table->integer('year');
             $table->integer('mileage');
             $table->text('description')->nullable();
-            $table->date('end_date');
+            $table->timestamp('end_date');
+            $table->boolean('is_end');
             $table->decimal('min_price', 10, 2);
             $table->timestamps();
         });

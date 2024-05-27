@@ -92,7 +92,7 @@
     <div id="inne" class="container">
         <div class="row">
             <div class="col-sm-12 col-md-6 mb-4">
-                <h2>Jak kupować samochody używane</h2>
+                <h2>Jak kupować samochody używane?</h2>
                 <div class="ratio ratio-16x9">
                     <iframe src="https://www.youtube.com/embed/OUJXrHUSKIE"></iframe>
                 </div>

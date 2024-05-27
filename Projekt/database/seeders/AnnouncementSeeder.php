@@ -26,7 +26,8 @@ class AnnouncementSeeder extends Seeder
             'year' => 2000,
             'mileage' => 321.23,
             'description' => 'Samochód w bardzo dobrym stanie pierwszy właściciel.',
-            'end_date' => '2024-05-08',
+            'end_date' => '2024-05-27 18:27',
+            'is_end' => false,
             'min_price' => 200
         ],
 
@@ -38,6 +39,7 @@ class AnnouncementSeeder extends Seeder
             'mileage' => 32.23,
             'description' => 'Samochód w bardzo dobrym stanie pierwszy właściciel.',
             'end_date' => '2024-05-08',
+            'is_end' => false,
             'min_price' => 20000
         ],
 
@@ -49,6 +51,7 @@ class AnnouncementSeeder extends Seeder
             'mileage' => 65000.50,
             'description' => 'Samochód w bardzo dobrym stanie, regularnie serwisowany.',
             'end_date' => '2024-05-10',
+            'is_end' => false,
             'min_price' => 25000
         ],
         [
@@ -59,6 +62,7 @@ class AnnouncementSeeder extends Seeder
             'mileage' => 23000.75,
             'description' => 'Sprzedam szybko, cena do negocjacji.',
             'end_date' => '2024-05-12',
+            'is_end' => false,
             'min_price' => 15000
         ],
         [
@@ -69,6 +73,7 @@ class AnnouncementSeeder extends Seeder
             'mileage' => 40000.80,
             'description' => 'Samochód w świetnym stanie, bezwypadkowy.',
             'end_date' => '2024-05-15',
+            'is_end' => false,
             'min_price' => 18000
         ],
         [
@@ -79,6 +84,7 @@ class AnnouncementSeeder extends Seeder
             'mileage' => 55000.20,
             'description' => 'Sprzedam tanio, szybka transakcja.',
             'end_date' => '2024-05-18',
+            'is_end' => false,
             'min_price' => 12000
         ]
     ]);

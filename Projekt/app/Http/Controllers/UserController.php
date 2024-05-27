@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Announcement;
+use App\Models\Bid;
 use App\Models\Bids;
 
 use Illuminate\Support\Facades\Auth;
@@ -22,7 +23,7 @@ class UserController extends Controller
 
             $announcements = Announcement::with('photos')->where('user_id', $id)->get();
 
-            $participatingAuctions = Bids::where('user_id', $user->id)
+            $participatingAuctions = Bid::where('user_id', $user->id)
                 ->with(['announcement' => function($query) {
                     $query->with('bids');
                 }])

@@ -11,7 +11,7 @@ class Announcement extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'name', 'brand', 'year', 'mileage', 'description', 'end_date', 'min_price'];
+    protected $fillable = ['user_id', 'name', 'brand', 'year', 'mileage', 'description', 'end_date','is_end', 'min_price'];
 
     public $timestamps = false;
 
@@ -22,7 +22,7 @@ class Announcement extends Model
 
     public function bids(): HasMany
     {
-        return $this->hasMany(Bids::class);
+        return $this->hasMany(Bid::class);
     }
 
     public function photos(): HasMany

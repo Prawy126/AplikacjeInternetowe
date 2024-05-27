@@ -6,18 +6,19 @@ use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\BidController;
 use App\Http\Controllers\BidsController;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware(['auth'])->group(function () {
-    Route::get('/user/{id}', [UserController::class, 'user'])->name('cars.user');
-    Route::controller(PhotoController::class)->group(function () {
+    Route::middleware(['auth'])->group(function () {
+        Route::get('/user/{id}', [UserController::class, 'user'])->name('cars.user');
+        Route::controller(PhotoController::class)->group(function () {
 
+        });
     });
-});
 
 Route::middleware(['auth'])->group(function () {
     Route::resource('announcements', AnnouncementController::class);
@@ -50,4 +51,4 @@ Route::controller(AuthController::class)->group(function () {
     Route::get('/auth/logout', 'logout')->name('logout');
 });
 
-Route::post('/announcements/{announcement}/bids', [BidsController::class, 'store'])->name('bids.store');
+Route::post('/announcements/{announcement}/bids', [BidController::class, 'store'])->name('bids.store');

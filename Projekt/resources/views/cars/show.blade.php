@@ -63,15 +63,20 @@
                             </div>
                         @endif
 
-                        <form action="{{ route('bids.store', $announcement->id) }}" method="POST">
-                            @csrf
-                            <div class="mb-3">
-                                <input type="number" name="amount" class="form-control" placeholder="Wpisz kwotę licytacji">
-                            </div>
-                            <button type="submit" class="btn btn-primary">Licytuj</button>
-                        </form>
-                        @if(!empty($promoPrice) && $promoPrice != $announcement->min_price)
-                            <h5 class="card-title">{{ $promoPrice }} zł</h5>
+                        @if(!$announcement->is_ended)
+                            <div class="alert alert-warning">Licytacja zakończona</div>
+                            @if($highestBid)
+                                <h5 class="card-title">Zwycięzca licytacji: {{ $highestBid->user->email }}</h5>
+                            @endif
+                            <button type="button" class="btn btn-secondary" disabled>Licytuj</button>
+                        @else
+                            <form action="{{ route('bids.store', $announcement->id) }}" method="POST">
+                                @csrf
+                                <div class="mb-3">
+                                    <input type="number" name="amount" class="form-control" placeholder="Wpisz kwotę licytacji" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Licytuj</button>
+                            </form>
                         @endif
                     </div>
                 </div>
