@@ -20,6 +20,6 @@ class PhotoController extends Controller
     public function show($id)
     {
         $car = Announcement::with('photos')->findOrFail($id);
-        return view('cars.show', compact('car'));
+        return view('cars.show', ['car' => $car]);
     }
 }

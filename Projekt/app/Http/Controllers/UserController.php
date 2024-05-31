@@ -33,7 +33,7 @@ class UserController extends Controller
                     return $bids->sortByDesc('amount')->first();
                 });
 
-            return view('cars.user', compact('user', 'announcements', 'participatingAuctions'));
+            return view('cars.user', ['user' => $user, 'announcements' => $announcements, 'participatingAuctions' => $participatingAuctions]);
         } else {
             abort(403);
         }
@@ -48,6 +48,6 @@ class UserController extends Controller
             $announcement->highest_bid = $announcement->bids->where('user_id', $user->id)->sortByDesc('amount')->first();
         }
 
-        return view('user.show', compact('user', 'announcements'));
+        return view('user.show', ['user' => $user, 'announcements'=>$announcement]);
     }
 }

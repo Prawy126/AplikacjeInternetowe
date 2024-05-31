@@ -1,23 +1,21 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\Announcement;
 use App\Models\Bid;
-use App\Models\Bids;
+use App\Models\Photo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class AnnouncementController extends Controller
 {
     public function index()
     {
-
-        $liczba = Announcement::count();
-
+        $number = Announcement::count();
         $announcements = Announcement::with('photos')->get();
 
-        if ($liczba >= 4) {
+        if ($number >= 4) {
             $randomAnnouncements = $announcements->random(4);
             $randomCars = $randomAnnouncements;
         } else {
@@ -42,7 +40,6 @@ class AnnouncementController extends Controller
         ]);
     }
 
-
     public function show($id)
     {
         $announcement = Announcement::with(['bids' => function($query) {
@@ -65,18 +62,14 @@ class AnnouncementController extends Controller
         ]);
     }
 
-
-    public function oferty(){
-
-        $liczba = Announcement::all();
-        $liczba = $liczba -> count();
+    public function oferty()
+    {
+        $number = Announcement::all()->count();
         $cars = Announcement::with('photos')->get();
-        $cars = Announcement::with('photos')->get();
-        if ($liczba >= 4) {
 
+        if ($number >= 4) {
             $randomCars = $cars->random(4);
         } else {
-
             $randomCars = $cars;
         }
 
@@ -92,23 +85,25 @@ class AnnouncementController extends Controller
     public function destroy($id)
     {
         $announcement = Announcement::findOrFail($id);
-
         $announcement->photos()->delete();
         $announcement->delete();
 
         return redirect()->route('cars.user', ['id' => auth()->user()->id])->with('success', 'Ogłoszenie zostało usunięte.');
     }
 
-
-public function edit($id)
-{
-    $announcement = Announcement::findOrFail($id);
-    return view('cars.edit', compact('announcement'));
-}
-
-public function update(Request $request, $id)
+    public function edit($id)
     {
+        $announcement = Announcement::findOrFail($id);
 
+        if ($announcement->is_end || $announcement->end_date < now()) {
+            return redirect()->route('cars.index')->with('error', 'Nie można edytować zakończonej aukcji.');
+        }
+
+        return view('cars.edit', ['announcement' => $announcement]);
+    }
+
+    public function update(Request $request, $id)
+    {
         $request->validate([
             'name' => 'required|string|max:30',
             'brand' => 'required|string|max:30',
@@ -138,6 +133,11 @@ public function update(Request $request, $id)
         ]);
 
         $announcement = Announcement::findOrFail($id);
+
+        if ($announcement->is_end || $announcement->end_date < now()) {
+            return redirect()->route('cars.index')->with('error', 'Nie można zaktualizować zakończonej aukcji.');
+        }
+
         $announcement->update($request->all());
 
         return redirect()->route('cars.index')->with('success', 'Ogłoszenie zostało zaktualizowane.');
@@ -150,11 +150,18 @@ public function update(Request $request, $id)
 
     public function store(Request $request)
     {
-        //dd($request->all());
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'brand' => 'required|string|max:255',
+            'year' => 'required|integer',
+            'mileage' => 'required|integer',
+            'description' => 'nullable|string',
+            'end_date' => 'required|date',
+            'min_price' => 'required|numeric',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
 
-        //dd($request);
-
-        Announcement::create([
+        $announcement = Announcement::create([
             'user_id' => auth()->id(),
             'name' => $request->name,
             'brand' => $request->brand,
@@ -162,11 +169,20 @@ public function update(Request $request, $id)
             'mileage' => $request->mileage,
             'description' => $request->description,
             'end_date' => $request->end_date,
-            'is_end'=>false,
+            'is_end' => false,
             'min_price' => $request->min_price,
         ]);
 
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('img', 'public');
+            $photo = new Photo([
+                'announcement_id' => $announcement->id,
+                'photo_name' => $imagePath,
+            ]);
+            $photo->save();
+        }
+
         return redirect()->route('announcements.index')->with('success', 'Ogłoszenie zostało dodane.');
     }
-
 }
+

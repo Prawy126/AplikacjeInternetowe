@@ -15,28 +15,12 @@
                     </div>
                     <div class="card-body">
                         <h4>Dane:</h4>
-                        <div class="table-responsive-sm mt-3">
-                            <table class="table table-hover table-striped">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Imię</th>
-                                        <th scope="col">Nazwisko</th>
-                                        <th scope="col">Adres</th>
-                                        <th scope="col">Numer telefonu</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <th scope="row">{{ $user->id }}</th>
-                                        <td>{{ $user->name }}</td>
-                                        <td>{{ $user->surname }}</td>
-                                        <td>{{ $user->address }}</td>
-                                        <td>{{ $user->phone_number }}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                        <ul class="list-group list-group-flush mt-3">
+                            <li class="list-group-item"><strong>Imię:</strong> {{ $user->name }}</li>
+                            <li class="list-group-item"><strong>Nazwisko:</strong> {{ $user->surname }}</li>
+                            <li class="list-group-item"><strong>Adres:</strong> {{ $user->address }}</li>
+                            <li class="list-group-item"><strong>Numer telefonu:</strong> {{ $user->phone_number }}</li>
+                        </ul>
                     </div>
                 </div>
 
@@ -81,7 +65,7 @@
                         <h2>Dodaj nowe ogłoszenie</h2>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('announcements.store') }}" method="POST">
+                        <form action="{{ route('announcements.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="mb-3">
                                 <label for="carName" class="form-label">Marka</label>
@@ -109,12 +93,16 @@
                             </div>
                             <div class="mb-3">
                                 <label for="carEndDate" class="form-label">Data zakończenia</label>
-                                <input type="datetime" class="form-control" id="carEndDate" name="end_date" required>
+                                <input type="datetime-local" class="form-control" id="carEndDate" name="end_date" required>
                             </div>
                             <div class="mb-3">
                                 <label for="carMinPrice" class="form-label">Cena minimalna (PLN)</label>
                                 <input type="number" class="form-control" id="carMinPrice" name="min_price"
                                     placeholder="Wprowadź cenę minimalną" step="0.01" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="carImage" class="form-label">Zdjęcie</label>
+                                <input type="file" class="form-control" id="carImage" name="image" required>
                             </div>
                             <div class="d-grid">
                                 <button type="submit" class="btn btn-success">Dodaj ogłoszenie</button>

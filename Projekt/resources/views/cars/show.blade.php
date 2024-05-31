@@ -1,6 +1,7 @@
 @include('shared.html')
 
 @include('shared.head', ['pageTitle' => 'Samochód: '.$announcement->name])
+
 <body>
     @include('shared.navbar')
 
@@ -16,7 +17,7 @@
                             @if ($announcement->photos->isNotEmpty())
                                 @foreach($announcement->photos as $key => $photo)
                                     <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
-                                        <img src="{{ asset('img/'.$photo->photo_name) }}" class="d-block w-100" alt="{{ $announcement->name }}">
+                                        <img src="{{ asset('storage/'.$photo->photo_name) }}" class="d-block w-100" alt="{{ $announcement->name }}">
                                     </div>
                                 @endforeach
                             @else
@@ -62,9 +63,9 @@
                                 </ul>
                             </div>
                         @endif
-
-                        @if(!$announcement->is_ended)
+                        @if($announcement->is_end)
                             <div class="alert alert-warning">Licytacja zakończona</div>
+
                             @if($highestBid)
                                 <h5 class="card-title">Zwycięzca licytacji: {{ $highestBid->user->email }}</h5>
                             @endif
@@ -76,8 +77,8 @@
                                     <input type="number" name="amount" class="form-control" placeholder="Wpisz kwotę licytacji" required>
                                 </div>
                                 <button type="submit" class="btn btn-primary">Licytuj</button>
+                            @endif
                             </form>
-                        @endif
                     </div>
                 </div>
             </div>
