@@ -101,8 +101,8 @@
                                     placeholder="Wprowadź cenę minimalną" step="0.01" required>
                             </div>
                             <div class="mb-3">
-                                <label for="carImage" class="form-label">Zdjęcie</label>
-                                <input type="file" class="form-control" id="carImage" name="image" required>
+                                <label for="carImages" class="form-label">Zdjęcia</label>
+                                <input type="file" class="form-control" id="carImages" name="images[]" multiple required>
                             </div>
                             <div class="d-grid">
                                 <button type="submit" class="btn btn-success">Dodaj ogłoszenie</button>

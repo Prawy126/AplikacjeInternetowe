@@ -50,6 +50,7 @@
                         <h5 class="card-title">Cena minimalna: {{ $announcement->min_price }} zł</h5>
                         @if($highestBid)
                             <h5 class="card-title">Aktualnie oferowana cena: {{ $highestBid->amount }} zł</h5>
+                            <h5 class="card-title">Najwyższą ofertę złożył: {{ $highestBid->user->email }}</h5>
                         @else
                             <h5 class="card-title">Aktualnie brak ofert</h5>
                         @endif
@@ -76,9 +77,13 @@
                                 <div class="mb-3">
                                     <input type="number" name="amount" class="form-control" placeholder="Wpisz kwotę licytacji" required>
                                 </div>
-                                <button type="submit" class="btn btn-primary">Licytuj</button>
-                            @endif
+                                @if(Auth::check())
+                                    <button type="submit" class="btn btn-primary">Licytuj</button>
+                                @else
+                                    <button type="submit" class="btn btn-group-toggle" disabled>Licytuj</button>
+                                @endif
                             </form>
+                        @endif
                     </div>
                 </div>
             </div>

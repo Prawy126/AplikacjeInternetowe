@@ -13,7 +13,7 @@
                 <div class="col-12 col-sm-6 col-lg-3">
                     <div class="card">
                         @if (!empty($car->randomPhoto()) && !empty($car->randomPhoto()->photo_name))
-                            <img src="{{ asset('img/' . $car->randomPhoto()->photo_name) }}" class="card-img-top"
+                            <img src="{{ asset('storage/' . $car->randomPhoto()->photo_name) }}" class="card-img-top"
                                 alt="{{ $car->name }}">
                         @else
                             <img src="img/brak.webp" class="card-img-top" alt="{{ $car->name }}">

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Announcement;
+use App\Models\Bid;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -13,7 +14,40 @@ class AdminController extends Controller
         $users = User::all();
         $announcements = Announcement::all();
 
-        return view('admin.dashboard', compact('users', 'announcements'));
+          // Przykładowe dane do wykresów
+    $userCount = User::count();
+    $announcementCount = Announcement::count();
+
+    // Dane do wykresu liczby użytkowników i ogłoszeń w ciągu ostatnich 6 miesięcy
+    $userStats = User::selectRaw('MONTH(created_at) as month, COUNT(*) as count')
+        ->groupBy('month')
+        ->orderBy('month')
+        ->take(6)
+        ->get();
+
+    $announcementStats = Announcement::selectRaw('MONTH(created_at) as month, COUNT(*) as count')
+        ->groupBy('month')
+        ->orderBy('month')
+        ->take(6)
+        ->get();
+
+    $userAnnouncements = User::withCount('announcements')->get();
+
+        // Dane dotyczące liczby ogłoszeń dla każdego użytkownika
+        $userAnnouncements = User::withCount('announcements')->get();
+
+        // Średnia liczba ogłoszeń na użytkownika
+        $averageAnnouncementsPerUser = $userAnnouncements->avg('announcements_count');
+
+        // Średnia liczba ofert na dzień (z ostatnich 30 dni)
+        $bidsPerDay = Bid::selectRaw('DATE(created_at) as date, COUNT(*) as count')
+            ->where('created_at', '>=', now()->subDays(30))
+            ->groupBy('date')
+            ->get();
+
+        $averageOffersPerDay = $bidsPerDay->avg('count');
+
+        return view('admin.dashboard', compact('users', 'announcements', 'userCount', 'announcementCount', 'userStats', 'announcementStats', 'userAnnouncements', 'userAnnouncements', 'averageAnnouncementsPerUser', 'averageOffersPerDay'));
     }
 
     public function editUser($id)

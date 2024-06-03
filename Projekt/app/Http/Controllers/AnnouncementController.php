@@ -64,20 +64,16 @@ class AnnouncementController extends Controller
 
     public function oferty()
     {
-        $number = Announcement::all()->count();
+
         $cars = Announcement::with('photos')->get();
 
-        if ($number >= 4) {
-            $randomCars = $cars->random(4);
-        } else {
-            $randomCars = $cars;
-        }
+
 
         $recentBids = Bid::with('announcement')->orderBy('time', 'desc')->take(6)->get();
 
         return view('cars.oferty', [
             'cars' => $cars,
-            'randomCars' => $randomCars,
+
             'recentBids' => $recentBids,
         ]);
     }
@@ -149,40 +145,43 @@ class AnnouncementController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            'brand' => 'required|string|max:255',
-            'year' => 'required|integer',
-            'mileage' => 'required|integer',
-            'description' => 'nullable|string',
-            'end_date' => 'required|date',
-            'min_price' => 'required|numeric',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);
+{
+    $validatedData = $request->validate([
+        'name' => 'required|string|max:255',
+        'brand' => 'required|string|max:255',
+        'year' => 'required|integer',
+        'mileage' => 'required|integer',
+        'description' => 'nullable|string',
+        'end_date' => 'required|date',
+        'min_price' => 'required|numeric',
+        'images.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+    ]);
 
-        $announcement = Announcement::create([
-            'user_id' => auth()->id(),
-            'name' => $request->name,
-            'brand' => $request->brand,
-            'year' => $request->year,
-            'mileage' => $request->mileage,
-            'description' => $request->description,
-            'end_date' => $request->end_date,
-            'is_end' => false,
-            'min_price' => $request->min_price,
-        ]);
+    $announcement = Announcement::create([
+        'user_id' => auth()->id(),
+        'name' => $request->name,
+        'brand' => $request->brand,
+        'year' => $request->year,
+        'mileage' => $request->mileage,
+        'description' => $request->description,
+        'end_date' => $request->end_date,
+        'is_end' => false,
+        'min_price' => $request->min_price,
+    ]);
 
-        if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('img', 'public');
+    if ($request->hasFile('images')) {
+        foreach ($request->file('images') as $image) {
+            $imagePath = $image->store('img', 'public');
             $photo = new Photo([
                 'announcement_id' => $announcement->id,
                 'photo_name' => $imagePath,
             ]);
             $photo->save();
         }
-
-        return redirect()->route('announcements.index')->with('success', 'Ogłoszenie zostało dodane.');
     }
+
+    return redirect()->route('announcements.index')->with('success', 'Ogłoszenie zostało dodane.');
+}
+
 }
 

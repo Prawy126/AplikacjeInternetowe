@@ -43,9 +43,9 @@ return Application::configure(basePath: dirname(__DIR__))
             return $renderException($e, $request, 'errors.401', 'Unauthorized', 401);
         });
 
-        $exceptions->render(function (QueryException $e, Request $request) use ($renderException) {
+        /*$exceptions->render(function (QueryException $e, Request $request) use ($renderException) {
             return $renderException($e, $request, 'errors.500', 'Internal Server Error', 500);
-        });
+        });*/
 
         $exceptions->render(function (BadRequestHttpException $e, Request $request) use ($renderException) {
             return $renderException($e, $request, 'errors.400', 'Bad request', 400);

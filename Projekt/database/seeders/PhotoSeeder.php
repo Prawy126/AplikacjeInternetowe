@@ -21,73 +21,73 @@ class PhotoSeeder extends Seeder
         });
         Photo::insert([[
             'announcement_id' => 1,
-            'photo_name' => 'AUDI1.png'
+            'photo_name' => 'img/AUDI1.png'
         ],
 
         [
             'announcement_id' => 1,
-            'photo_name' => 'AUDI2.png'
+            'photo_name' => 'img/AUDI2.png'
         ],
 
         [
             'announcement_id' => 2,
-            'photo_name' => 'BMW2.jpeg'
+            'photo_name' => 'img/BMW2.jpeg'
         ],
 
         [
             'announcement_id' => 2,
-            'photo_name' => 'BMW.jpeg'
+            'photo_name' => 'img/BMW.jpeg'
         ],
 
         [
             'announcement_id' => 3,
-            'photo_name' => 'MERCEDES_C_CLASS.jpeg'
+            'photo_name' => 'img/MERCEDES_C_CLASS.jpeg'
         ],
 
         [
             'announcement_id' => 3,
-            'photo_name' => 'MERCEDES_C_CLASS.jpg'
+            'photo_name' => 'img/MERCEDES_C_CLASS.jpg'
         ],
         [
             'announcement_id' => 4,
-            'photo_name' => 'GOLF4.png'
+            'photo_name' => 'img/GOLF4.png'
         ],
         [
             'announcement_id' => 4,
-            'photo_name' => 'GOLF4_1.jpg'
+            'photo_name' => 'img/GOLF4_1.jpg'
         ],
 
         [
             'announcement_id' => 4,
-            'photo_name' => 'GOLF4_2.jpeg'
+            'photo_name' => 'img/GOLF4_2.jpeg'
         ],
         [
             'announcement_id' => 5,
-            'photo_name' => 'TOYOTA1.jpg'
+            'photo_name' => 'img/TOYOTA1.jpg'
         ],
         [
             'announcement_id' => 5,
-            'photo_name' => 'TOYOTA2.jpeg'
+            'photo_name' => 'img/TOYOTA2.jpeg'
         ],
         [
             'announcement_id' => 5,
-            'photo_name' => 'TOYOTA3.jpeg'
+            'photo_name' => 'img/TOYOTA3.jpeg'
         ],
         [
             'announcement_id' => 5,
-            'photo_name' => 'TOYOTA4.jpg'
+            'photo_name' => 'img/TOYOTA4.jpg'
         ],
         [
             'announcement_id' => 6,
-            'photo_name' => 'FOCUS.jpg'
+            'photo_name' => 'img/FOCUS.jpg'
         ],
         [
             'announcement_id' => 6,
-            'photo_name' => 'FOCUS2.jpeg'
+            'photo_name' => 'img/FOCUS2.jpeg'
         ],
         [
             'announcement_id' => 6,
-            'photo_name' => 'FOCUS3.jpg'
+            'photo_name' => 'img/FOCUS3.jpg'
         ]
 
 

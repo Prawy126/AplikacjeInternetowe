@@ -8,13 +8,13 @@
         <div id="carouselExampleCaptions" class="carousel slide">
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="{{ asset('img/image.png') }}" class="d-block w-100" alt="...">
+                    <img src="{{ asset('img/image.png') }}" class="d-block w-100" alt="Najlepsze ceny">
                     <div class="carousel-caption d-none d-md-block">
                         <h1 class="text-white">Najlepsze ceny</h1>
                     </div>
                 </div>
                 <div class="carousel-item">
-                    <img src="{{ asset('img/image2.png') }}" class="d-block w-100" alt="...">
+                    <img src="{{ asset('img/image2.png') }}" class="d-block w-100" alt="Najlepsza jakość">
                     <div class="carousel-caption d-none d-md-block">
                         <h1 class="text-white">Najlepsza jakość</h1>
                     </div>
@@ -40,7 +40,7 @@
                 <div class="col-12 col-sm-6 col-lg-3">
                     <div class="card">
                         @if($car->photos->isNotEmpty())
-                            <img src="{{ asset('img/'.$car->photos->first()->photo_name) }}" class="card-img-top" alt="{{ $car->name }}">
+                            <img src="{{asset('storage/'.$car->photos->first()->photo_name) }}" class="card-img-top" alt="{{ $car->name }}">
                         @else
                             <img src="{{ asset('img/brak.webp') }}" class="card-img-top" alt="Default Image">
                         @endif
@@ -94,7 +94,7 @@
             <div class="col-sm-12 col-md-6 mb-4">
                 <h2>Jak kupować samochody używane?</h2>
                 <div class="ratio ratio-16x9">
-                    <iframe src="https://www.youtube.com/embed/OUJXrHUSKIE"></iframe>
+                    <iframe src="https://www.youtube.com/embed/OUJXrHUSKIE" frameborder="0" allowfullscreen></iframe>
                 </div>
             </div>
             <div class="col-sm-12 col-md-6">

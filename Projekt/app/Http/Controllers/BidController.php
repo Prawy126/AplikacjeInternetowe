@@ -10,23 +10,46 @@ class BidController extends Controller
 {
     public function store(Request $request, $announcementId)
     {
-        $announcement = Announcement::findOrFail($announcementId);
-
-        if ($announcement->is_end || $announcement->end_date < now()) {
-            return redirect()->route('cars.show', $announcementId)->with('error', 'Nie można dodać oferty do zakończonej aukcji.');
-        }
-
         $request->validate([
             'amount' => 'required|numeric|min:0',
+        ], [
+            'amount.required' => 'Pole kwota jest wymagane.',
+            'amount.numeric' => 'Pole kwota musi być liczbą.',
+            'amount.min' => 'Pole kwota musi być większe niż 0.',
         ]);
 
+        $announcement = Announcement::findOrFail($announcementId);
+        $currentDateTime = now();
+
+        // Sprawdzenie, czy licytacja nie jest zakończona
+        if ($announcement->is_end || $announcement->end_date < $currentDateTime) {
+            return redirect()->route('cars.show', ['id' => $announcementId])
+                ->withErrors(['Licytacja jest zakończona i nie można składać nowych ofert.']);
+        }
+
+        $highestBid = $announcement->bids()->orderBy('amount', 'desc')->first();
+
+        // Sprawdzenie, czy kwota jest większa od aktualnie najwyższej oferty lub minimalnej ceny
+        if ($request->amount <= $announcement->min_price || ($highestBid && $request->amount <= $highestBid->amount)) {
+            return redirect()->route('cars.show', ['id' => $announcementId])
+                ->withErrors(['Kwota musi być większa niż minimalna cena i aktualnie najwyższa oferta.']);
+        }
+
+        // Sprawdzenie, czy użytkownik nie przebija samego siebie
+        if ($highestBid && $highestBid->user_id == Auth::id()) {
+            return redirect()->route('cars.show', ['id' => $announcementId])
+                ->withErrors(['Nie możesz przebijać swojej własnej oferty.']);
+        }
+
+        // Tworzenie nowej oferty
         Bid::create([
-            'user_id' => Auth::id(),
             'announcement_id' => $announcementId,
+            'user_id' => Auth::id(),
             'amount' => $request->amount,
-            'time' => now(),
+            'time' => $currentDateTime,
         ]);
 
-        return redirect()->route('cars.show', $announcementId)->with('success', 'Oferta została dodana.');
+        return redirect()->route('cars.show', ['id' => $announcementId])
+            ->with('success', 'Twoja oferta została złożona.');
     }
 }
