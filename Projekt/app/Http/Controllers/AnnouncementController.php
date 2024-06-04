@@ -103,7 +103,6 @@ class AnnouncementController extends Controller
 
     public function update(Request $request, $id)
     {
-        dd($request);
         $request->validate([
             'name' => 'required|string|max:30',
             'brand' => 'required|string|max:30',
@@ -146,7 +145,7 @@ class AnnouncementController extends Controller
             return redirect()->route('cars.show', $announcement->id)->with('error', 'Nie można zaktualizować zakończonej aukcji.');
         }
 
-        $announcement->update($request->all());
+        $announcement->update($request->only(['name', 'brand', 'year', 'mileage', 'description', 'min_price', 'end_date', 'end_date']));
 
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
@@ -159,9 +158,9 @@ class AnnouncementController extends Controller
             }
         }
 
-
         return redirect()->route('cars.show', $announcement->id)->with('success', 'Ogłoszenie zostało zaktualizowane.');
     }
+
     public function create()
     {
         return view('announcements.create');
