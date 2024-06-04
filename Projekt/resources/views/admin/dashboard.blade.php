@@ -2,7 +2,8 @@
 
 @include('shared.head', ['pageTitle' => 'Admin'])
 
-@include("shared.navbar")
+@include('shared.navbar')
+
 <body>
     <div class="container mt-5">
         <div class="row">
@@ -111,8 +112,9 @@
                         <h2>Statystyki</h2>
                     </div>
                     <div class="card-body">
-                        <p><strong>Średnia liczba ogłoszeń na użytkownika:</strong> {{ number_format($averageAnnouncementsPerUser, 2) }}</p>
-                        <p><strong>Średnia liczba ofert na dzień:</strong> {{ number_format($averageOffersPerDay, 2) }}</p>
+                        <p><strong>Średnia liczba ogłoszeń na użytkownika:</strong>
+                            {{ number_format($averageAnnouncementsPerUser, 2) }}</p>
+                        <p><strong>Średnia cena ofert:</strong> {{ number_format($averageBidPrice, 2) }} zł</p>
                     </div>
                 </div>
             </div>

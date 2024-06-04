@@ -37,13 +37,14 @@ Route::prefix('admin')->middleware('auth')->group(function () {
 
 
 Route::controller(AnnouncementController::class)->group(function () {
-        Route::get('/home', 'index')->name('cars.index');
-        Route::get('/car/{id}', 'show')->name('cars.show');
-        Route::get('/car/{id}/edit', 'edit')->name('cars.edit');
-        Route::put('/car/{id}', 'update')->name('announcements.update');
-        Route::get('/oferty', 'oferty')->name('cars.oferty');
-        Route::delete('/announcement/{id}', 'destroy')->name('cars.destroy');
-    });
+    Route::get('/home', 'index')->name('cars.index');
+    Route::get('/car/{id}', 'show')->name('cars.show');
+    Route::get('/car/{id}/edit', 'edit')->name('cars.edit');
+    Route::put('/car/{id}', 'update')->name('announcements.update');
+    Route::get('/oferty', 'oferty')->name('cars.oferty');
+    Route::delete('/announcement/{id}', 'destroy')->name('cars.destroy');
+});
+
 
 Route::controller(AuthController::class)->group(function () {
     Route::get('/auth/login', 'login')->name('login');
@@ -52,3 +53,5 @@ Route::controller(AuthController::class)->group(function () {
 });
 
 Route::post('/announcements/{announcement}/bids', [BidController::class, 'store'])->name('bids.store');
+
+Route::delete('/photos/{id}', [PhotoController::class, 'destroy'])->name('photos.destroy');

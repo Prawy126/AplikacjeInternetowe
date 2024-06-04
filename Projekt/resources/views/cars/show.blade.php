@@ -67,8 +67,12 @@
                         @if($announcement->is_end)
                             <div class="alert alert-warning">Licytacja zakończona</div>
 
-                            @if($highestBid)
-                                <h5 class="card-title">Zwycięzca licytacji: {{ $highestBid->user->email }}</h5>
+                            @if($highestBid && Auth::check())
+                                @if(Auth::user()->email === $highestBid->user->email)
+                                    <h5>Gratulację wygrałeś licytację</h5>
+                                @else
+                                    <h5 class="card-title">Zwycięzca licytacji: {{ $highestBid->user->email }}</h5>
+                                @endif
                             @endif
                             <button type="button" class="btn btn-secondary" disabled>Licytuj</button>
                         @else

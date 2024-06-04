@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Application;
@@ -31,6 +30,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $exceptions->render(function (MethodNotAllowedHttpException $e, Request $request) use ($renderException) {
             return $renderException($e, $request, 'errors.405', 'Method Not Allowed', 405);
         });
+
         $exceptions->render(function (NotFoundHttpException $e, Request $request) use ($renderException) {
             return $renderException($e, $request, 'errors.404', 'Not Found', 404);
         });
@@ -43,16 +43,15 @@ return Application::configure(basePath: dirname(__DIR__))
             return $renderException($e, $request, 'errors.401', 'Unauthorized', 401);
         });
 
+        $exceptions->render(function (BadRequestHttpException $e, Request $request) use ($renderException) {
+            return $renderException($e, $request, 'errors.400', 'Bad Request', 400);
+        });
+
         /*$exceptions->render(function (QueryException $e, Request $request) use ($renderException) {
             return $renderException($e, $request, 'errors.500', 'Internal Server Error', 500);
         });*/
-
-        $exceptions->render(function (BadRequestHttpException $e, Request $request) use ($renderException) {
-            return $renderException($e, $request, 'errors.400', 'Bad request', 400);
-        });
-
     })
     ->withMiddleware(function (Middleware $middleware) {
-        //
+        // Dodaj swoje middleware tutaj
     })
     ->create();

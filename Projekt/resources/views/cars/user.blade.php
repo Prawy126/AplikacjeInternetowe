@@ -102,7 +102,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="carImages" class="form-label">Zdjęcia</label>
-                                <input type="file" class="form-control" id="carImages" name="images[]" multiple required>
+                                <input type="file" class="form-control" id="carImages" name="images[]" multiple >
                             </div>
                             <div class="d-grid">
                                 <button type="submit" class="btn btn-success">Dodaj ogłoszenie</button>

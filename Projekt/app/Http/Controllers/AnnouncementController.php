@@ -1,9 +1,11 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Announcement;
 use App\Models\Bid;
 use App\Models\Photo;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -64,10 +66,7 @@ class AnnouncementController extends Controller
 
     public function oferty()
     {
-
         $cars = Announcement::with('photos')->get();
-
-
 
         $recentBids = Bid::with('announcement')->orderBy('time', 'desc')->take(6)->get();
 
@@ -92,14 +91,19 @@ class AnnouncementController extends Controller
         $announcement = Announcement::findOrFail($id);
 
         if ($announcement->is_end || $announcement->end_date < now()) {
-            return redirect()->route('cars.index')->with('error', 'Nie można edytować zakończonej aukcji.');
+            return redirect()->route('cars.show', $announcement->id)->with('error', 'Nie można edytować zakończonej aukcji.');
         }
 
-        return view('cars.edit', ['announcement' => $announcement]);
+        $date = date('Y-m-d\TH:i', strtotime($announcement->end_date));
+
+        $announcement->end_date = Carbon::parse($announcement->end_date);
+
+        return view('cars.edit', ['announcement' => $announcement, 'date' => $date]);
     }
 
     public function update(Request $request, $id)
     {
+        dd($request);
         $request->validate([
             'name' => 'required|string|max:30',
             'brand' => 'required|string|max:30',
@@ -107,6 +111,8 @@ class AnnouncementController extends Controller
             'mileage' => 'required|numeric|min:0',
             'description' => 'nullable|string',
             'min_price' => 'required|numeric|min:100',
+            'end_date' => 'required|date|after:now',
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ], [
             'name.required' => 'Pole Marka jest wymagane.',
             'name.string' => 'Pole Marka musi być ciągiem znaków.',
@@ -126,62 +132,77 @@ class AnnouncementController extends Controller
             'min_price.required' => 'Pole Cena jest wymagane.',
             'min_price.numeric' => 'Pole Cena musi być liczbą.',
             'min_price.min' => 'Pole Cena nie może być mniejsze niż 100.',
+            'end_date.required' => 'Pole Data końcowa jest wymagane.',
+            'end_date.date' => 'Pole Data końcowa musi być prawidłową datą.',
+            'end_date.after' => 'Pole Data końcowa musi być datą po obecnej.',
+            'images.*.image' => 'Każdy plik musi być obrazem.',
+            'images.*.mimes' => 'Każdy plik musi być typu: jpeg, png, jpg, gif, svg.',
+            'images.*.max' => 'Każdy plik nie może być większy niż 2048 KB.',
         ]);
 
         $announcement = Announcement::findOrFail($id);
 
         if ($announcement->is_end || $announcement->end_date < now()) {
-            return redirect()->route('cars.index')->with('error', 'Nie można zaktualizować zakończonej aukcji.');
+            return redirect()->route('cars.show', $announcement->id)->with('error', 'Nie można zaktualizować zakończonej aukcji.');
         }
 
         $announcement->update($request->all());
 
-        return redirect()->route('cars.index')->with('success', 'Ogłoszenie zostało zaktualizowane.');
-    }
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                $imagePath = $image->store('img', 'public');
+                $photo = new Photo([
+                    'announcement_id' => $announcement->id,
+                    'photo_name' => $imagePath,
+                ]);
+                $photo->save();
+            }
+        }
 
+
+        return redirect()->route('cars.show', $announcement->id)->with('success', 'Ogłoszenie zostało zaktualizowane.');
+    }
     public function create()
     {
         return view('announcements.create');
     }
 
     public function store(Request $request)
-{
-    $validatedData = $request->validate([
-        'name' => 'required|string|max:255',
-        'brand' => 'required|string|max:255',
-        'year' => 'required|integer',
-        'mileage' => 'required|integer',
-        'description' => 'nullable|string',
-        'end_date' => 'required|date',
-        'min_price' => 'required|numeric',
-        'images.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-    ]);
+    {
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'brand' => 'required|string|max:255',
+            'year' => 'required|integer',
+            'mileage' => 'required|integer',
+            'description' => 'nullable|string',
+            'end_date' => 'required|date',
+            'min_price' => 'required|numeric',
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
 
-    $announcement = Announcement::create([
-        'user_id' => auth()->id(),
-        'name' => $request->name,
-        'brand' => $request->brand,
-        'year' => $request->year,
-        'mileage' => $request->mileage,
-        'description' => $request->description,
-        'end_date' => $request->end_date,
-        'is_end' => false,
-        'min_price' => $request->min_price,
-    ]);
+        $announcement = Announcement::create([
+            'user_id' => auth()->id(),
+            'name' => $request->name,
+            'brand' => $request->brand,
+            'year' => $request->year,
+            'mileage' => $request->mileage,
+            'description' => $request->description,
+            'end_date' => $request->end_date,
+            'is_end' => false,
+            'min_price' => $request->min_price,
+        ]);
 
-    if ($request->hasFile('images')) {
-        foreach ($request->file('images') as $image) {
-            $imagePath = $image->store('img', 'public');
-            $photo = new Photo([
-                'announcement_id' => $announcement->id,
-                'photo_name' => $imagePath,
-            ]);
-            $photo->save();
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                $imagePath = $image->store('img', 'public');
+                $photo = new Photo([
+                    'announcement_id' => $announcement->id,
+                    'photo_name' => $imagePath,
+                ]);
+                $photo->save();
+            }
         }
+
+        return redirect()->route('announcements.index')->with('success', 'Ogłoszenie zostało dodane.');
     }
-
-    return redirect()->route('announcements.index')->with('success', 'Ogłoszenie zostało dodane.');
 }
-
-}
-
