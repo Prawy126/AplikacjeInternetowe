@@ -79,7 +79,16 @@ class AnnouncementController extends Controller
 
     public function destroy($id)
     {
-        $announcement = Announcement::findOrFail($id);
+        $announcement = Announcement::find($id);
+
+        if (!$announcement) {
+            return redirect()->route('cars.index')->with('error', 'Ogłoszenie nie zostało znalezione.');
+        }
+
+        // Sprawdzenie, czy zalogowany użytkownik jest właścicielem ogłoszenia lub administratorem
+        if ((Auth::check())&&(Auth::user()->id !== $announcement->user_id && Auth::user()->role !== 'admin')) {
+            return redirect()->route('cars.index')->with('error', 'Nie masz uprawnień do aktualizacji tego ogłoszenia.');
+        }
         $announcement->photos()->delete();
         $announcement->delete();
 
@@ -88,8 +97,16 @@ class AnnouncementController extends Controller
 
     public function edit($id)
     {
-        $announcement = Announcement::findOrFail($id);
+        $announcement = Announcement::find($id);
 
+        if (!$announcement) {
+            return redirect()->route('cars.index')->with('error', 'Ogłoszenie nie zostało znalezione.');
+        }
+
+        // Sprawdzenie, czy zalogowany użytkownik jest właścicielem ogłoszenia lub administratorem
+        if ((Auth::check())&&(Auth::user()->id !== $announcement->user_id && Auth::user()->role !== 'admin')) {
+            return redirect()->route('cars.index')->with('error', 'Nie masz uprawnień do aktualizacji tego ogłoszenia.');
+        }
         if ($announcement->is_end || $announcement->end_date < now()) {
             return redirect()->route('cars.show', $announcement->id)->with('error', 'Nie można edytować zakończonej aukcji.');
         }
@@ -103,6 +120,12 @@ class AnnouncementController extends Controller
 
     public function update(Request $request, $id)
     {
+        $announcement = Announcement::findOrFail($id);
+        // Sprawdzenie, czy zalogowany użytkownik jest właścicielem ogłoszenia lub administratorem
+        if ((Auth::check())&&(Auth::user()->id !== $announcement->user_id && Auth::user()->role !== 'admin')) {
+            return redirect()->route('cars.index')->with('error', 'Nie masz uprawnień do edycji tego ogłoszenia.');
+        }
+
         $request->validate([
             'name' => 'required|string|max:30',
             'brand' => 'required|string|max:30',
