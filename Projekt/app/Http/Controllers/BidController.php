@@ -21,7 +21,7 @@ class BidController extends Controller
         $announcement = Announcement::findOrFail($announcementId);
         $currentDateTime = now();
 
-        // Sprawdzenie, czy licytacja nie jest zakończona
+
         if ($announcement->is_end || $announcement->end_date < $currentDateTime) {
             return redirect()->route('cars.show', ['id' => $announcementId])
                 ->withErrors(['Licytacja jest zakończona i nie można składać nowych ofert.']);
@@ -29,19 +29,19 @@ class BidController extends Controller
 
         $highestBid = $announcement->bids()->orderBy('amount', 'desc')->first();
 
-        // Sprawdzenie, czy kwota jest większa od aktualnie najwyższej oferty lub minimalnej ceny
+
         if ($request->amount <= $announcement->min_price || ($highestBid && $request->amount <= $highestBid->amount)) {
             return redirect()->route('cars.show', ['id' => $announcementId])
                 ->withErrors(['Kwota musi być większa niż minimalna cena i aktualnie najwyższa oferta.']);
         }
 
-        // Sprawdzenie, czy użytkownik nie przebija samego siebie
+
         if ($highestBid && $highestBid->user_id == Auth::id()) {
             return redirect()->route('cars.show', ['id' => $announcementId])
                 ->withErrors(['Nie możesz przebijać swojej własnej oferty.']);
         }
 
-        // Tworzenie nowej oferty
+
         Bid::create([
             'announcement_id' => $announcementId,
             'user_id' => Auth::id(),

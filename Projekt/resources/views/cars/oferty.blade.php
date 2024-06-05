@@ -12,18 +12,20 @@
             @forelse ($cars as $car)
                 <div class="col-12 col-sm-6 col-lg-3">
                     <div class="card">
-                        @if (!empty($car->randomPhoto()) && !empty($car->randomPhoto()->photo_name))
-                            <img src="{{ asset('storage/' . $car->randomPhoto()->photo_name) }}" class="card-img-top"
-                                alt="{{ $car->name }}">
+                        @if ($photo = $car->randomPhoto())
+                            @if (!empty($photo->photo_name))
+                                <img src="{{ asset('storage/' . $photo->photo_name) }}" class="card-img-top" alt="{{ $car->name }}">
+                            @else
+                                <img src="{{ asset('img/brak.webp') }}" class="d-block w-100" alt="Brak zdjęć">
+                            @endif
                         @else
-                            <img src="img/brak.webp" class="card-img-top" alt="{{ $car->name }}">
+                            <img src="{{ asset('img/brak.webp') }}" class="d-block w-100" alt="Brak zdjęć">
                         @endif
 
                         <div class="card-body">
                             <h5 class="card-title">{{ $car->name }}</h5>
                             <p class="card-text">{{ $car->description }}</p>
-                            <a href="{{ route('cars.show', ['id' => $car->id]) }}" class="btn btn-primary">Więcej
-                                szczegółów...</a>
+                            <a href="{{ route('cars.show', ['id' => $car->id]) }}" class="btn btn-primary">Więcej szczegółów...</a>
                         </div>
                     </div>
                 </div>

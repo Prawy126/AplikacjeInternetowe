@@ -47,9 +47,9 @@ return Application::configure(basePath: dirname(__DIR__))
             return $renderException($e, $request, 'errors.400', 'Bad Request', 400);
         });
 
-        /*$exceptions->render(function (QueryException $e, Request $request) use ($renderException) {
+        $exceptions->render(function (QueryException $e, Request $request) use ($renderException) {
             return $renderException($e, $request, 'errors.500', 'Internal Server Error', 500);
-        });*/
+        });
     })
     ->withMiddleware(function (Middleware $middleware) {
         // Dodaj swoje middleware tutaj

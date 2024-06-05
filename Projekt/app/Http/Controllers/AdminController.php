@@ -50,12 +50,24 @@ class AdminController extends Controller
         // Średnia cena ofert
         $averageBidPrice = Bid::avg('amount');
 
-        return view('admin.dashboard', compact('users', 'announcements', 'userCount', 'announcementCount', 'userStats', 'announcementStats', 'userAnnouncements', 'averageAnnouncementsPerUser', 'averageOffersPerDay', 'averageBidPrice'));
+        return view('admin.dashboard', [
+            'users' => $users,
+            'announcements' => $announcements,
+            'userCount' => $userCount,
+            'announcementCount' => $announcementCount,
+            'userStats' => $userStats,
+            'announcementStats' => $announcementStats,
+            'userAnnouncements' => $userAnnouncements,
+            'averageAnnouncementsPerUser' => $averageAnnouncementsPerUser,
+            'averageOffersPerDay' => $averageOffersPerDay,
+            'averageBidPrice' => $averageBidPrice
+        ]);
+
     }
     public function editUser($id)
     {
         $user = User::findOrFail($id);
-        return view('admin.edit_user', compact('user'));
+        return view('admin.edit_user', ['user' => $user]);
     }
 
     public function updateUser(Request $request, $id)
@@ -99,7 +111,7 @@ class AdminController extends Controller
     public function editAnnouncement($id)
     {
         $announcement = Announcement::findOrFail($id);
-        return view('admin.edit_announcement', compact('announcement'));
+        return view('admin.edit_announcement', ['announcement' => $announcement]);
     }
 
     public function updateAnnouncement(Request $request, $id)

@@ -33,10 +33,10 @@ Route::middleware(['auth'])->group(function () {
 Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('/user/edit/{id}', [AdminController::class, 'editUser'])->name('admin.editUser');
-    Route::put('/user/update/{id}', [AdminController::class, 'updateUser'])->name('admin.updateUser'); // Dodaj tę trasę
+    Route::put('/user/update/{id}', [AdminController::class, 'updateUser'])->name('admin.updateUser');
     Route::delete('/user/delete/{id}', [AdminController::class, 'deleteUser'])->name('admin.deleteUser');
     Route::get('/announcement/edit/{id}', [AdminController::class, 'editAnnouncement'])->name('admin.editAnnouncement');
-    Route::put('/announcement/update/{id}', [AdminController::class, 'updateAnnouncement'])->name('admin.updateAnnouncement'); // Dodaj tę trasę
+    Route::put('/announcement/update/{id}', [AdminController::class, 'updateAnnouncement'])->name('admin.updateAnnouncement');
     Route::delete('/announcement/delete/{id}', [AdminController::class, 'deleteAnnouncement'])->name('admin.deleteAnnouncement');
 });
 

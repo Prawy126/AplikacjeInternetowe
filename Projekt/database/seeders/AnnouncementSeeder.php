@@ -61,7 +61,7 @@ class AnnouncementSeeder extends Seeder
             'year' => 2019,
             'mileage' => 23000.75,
             'description' => 'Sprzedam szybko, cena do negocjacji.',
-            'end_date' => '2024-05-12',
+            'end_date' => '2024-06-12 14:20',
             'is_end' => false,
             'min_price' => 15000
         ],
@@ -72,7 +72,7 @@ class AnnouncementSeeder extends Seeder
             'year' => 2018,
             'mileage' => 40000.80,
             'description' => 'Samochód w świetnym stanie, bezwypadkowy.',
-            'end_date' => '2024-05-15',
+            'end_date' => '2024-06-15',
             'is_end' => false,
             'min_price' => 18000
         ],
@@ -83,7 +83,7 @@ class AnnouncementSeeder extends Seeder
             'year' => 2017,
             'mileage' => 55000.20,
             'description' => 'Sprzedam tanio, szybka transakcja.',
-            'end_date' => '2024-05-18',
+            'end_date' => '2024-07-18 20:21',
             'is_end' => false,
             'min_price' => 12000
         ]

@@ -1,6 +1,6 @@
 @include('shared.html')
 
-@include('shared.head', ['pageTitle' => 'Błąd 403'])
+@include('shared.head', ['pageTitle' => 'Błąd 405'])
 
 <style>
     body{

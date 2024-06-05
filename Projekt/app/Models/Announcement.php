@@ -32,11 +32,8 @@ class Announcement extends Model
 
     public function randomPhoto()
     {
-        if ($this->photos->isEmpty()) {
-            // Zwraca domyślne zdjęcie, jeśli nie ma zdjęć
-            return (object) ['photo_name' => 'samochod1.png'];
-        }
-        return $this->photos->random();
+        return $this->photos()->inRandomOrder()->first();
     }
+
 
 }

@@ -85,7 +85,7 @@ class AnnouncementController extends Controller
             return redirect()->route('cars.index')->with('error', 'Ogłoszenie nie zostało znalezione.');
         }
 
-        // Sprawdzenie, czy zalogowany użytkownik jest właścicielem ogłoszenia lub administratorem
+
         if ((Auth::check())&&(Auth::user()->id !== $announcement->user_id && Auth::user()->role !== 'admin')) {
             return redirect()->route('cars.index')->with('error', 'Nie masz uprawnień do aktualizacji tego ogłoszenia.');
         }
@@ -103,7 +103,7 @@ class AnnouncementController extends Controller
             return redirect()->route('cars.index')->with('error', 'Ogłoszenie nie zostało znalezione.');
         }
 
-        // Sprawdzenie, czy zalogowany użytkownik jest właścicielem ogłoszenia lub administratorem
+
         if ((Auth::check())&&(Auth::user()->id !== $announcement->user_id && Auth::user()->role !== 'admin')) {
             return redirect()->route('cars.index')->with('error', 'Nie masz uprawnień do aktualizacji tego ogłoszenia.');
         }
