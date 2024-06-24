@@ -29,32 +29,32 @@
                             <div class="mb-3">
                                 <label for="name" class="form-label">Imię</label>
                                 <input type="text" class="form-control" id="name" name="name"
-                                    value="{{ old('name', $user->name) }}" required>
+                                    value="{{ old('name', $user->name) }}" required maxlength="255">
                             </div>
                             <div class="mb-3">
                                 <label for="surname" class="form-label">Nazwisko</label>
                                 <input type="text" class="form-control" id="surname" name="surname"
-                                    value="{{ old('surname', $user->surname) }}" required>
+                                    value="{{ old('surname', $user->surname) }}" required maxlength="255">
                             </div>
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email</label>
                                 <input type="email" class="form-control" id="email" name="email"
-                                    value="{{ old('email', $user->email) }}" required>
+                                    value="{{ old('email', $user->email) }}" required maxlength="255">
                             </div>
                             <div class="mb-3">
                                 <label for="address" class="form-label">Adres</label>
                                 <input type="text" class="form-control" id="address" name="address"
-                                    value="{{ old('address', $user->address) }}" required>
+                                    value="{{ old('address', $user->address) }}" required maxlength="255">
                             </div>
                             <div class="mb-3">
                                 <label for="phone_number" class="form-label">Numer telefonu</label>
-                                <input type="text" class="form-control" id="phone_number" name="phone_number"
-                                    value="{{ old('phone_number', $user->phone_number) }}" required>
+                                <input type="tel" class="form-control" id="phone_number" name="phone_number"
+                                    value="{{ old('phone_number', $user->phone_number) }}" required pattern="[0-9]{9,15}">
                             </div>
                             <div class="mb-3">
                                 <label for="role" class="form-label">Rola</label>
                                 <input type="text" class="form-control" id="role" name="role"
-                                    value="{{ old('role', $user->role) }}" required>
+                                    value="{{ old('role', $user->role) }}" required maxlength="50">
                             </div>
                             <button type="submit" class="btn btn-success">Zapisz zmiany</button>
                             <a href="{{ route('admin.dashboard') }}" class="btn btn-secondary">Anuluj</a>

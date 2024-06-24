@@ -41,8 +41,8 @@ class BidController extends Controller
                 ->withErrors(['Nie możesz przebijać swojej własnej oferty.']);
         }
 
-
-        Bid::create([
+        if(Auth::check()){
+            Bid::create([
             'announcement_id' => $announcementId,
             'user_id' => Auth::id(),
             'amount' => $request->amount,
@@ -51,5 +51,7 @@ class BidController extends Controller
 
         return redirect()->route('cars.show', ['id' => $announcementId])
             ->with('success', 'Twoja oferta została złożona.');
+        }
+        return view('errors.401');
     }
 }

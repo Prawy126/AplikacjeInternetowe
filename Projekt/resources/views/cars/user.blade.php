@@ -44,7 +44,7 @@
                                                 <a href="{{ route('cars.edit', $announcement->id) }}"
                                                     class="btn btn-primary">Edytuj</a>
                                                 <form action="{{ route('cars.destroy', $announcement->id) }}"
-                                                    method="POST" >
+                                                    method="POST">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit"
@@ -63,46 +63,60 @@
                 <div class="card mb-4">
                     <div class="card-header bg-success text-white">
                         <h2>Dodaj nowe ogłoszenie</h2>
+
                     </div>
                     <div class="card-body">
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
                         <form action="{{ route('announcements.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="mb-3">
                                 <label for="carName" class="form-label">Marka</label>
                                 <input type="text" class="form-control" id="carName" name="name"
-                                    placeholder="Wprowadź markę samochodu" required>
+                                    placeholder="Wprowadź markę samochodu" required maxlength="30">
                             </div>
                             <div class="mb-3">
                                 <label for="carBrand" class="form-label">Model</label>
                                 <input type="text" class="form-control" id="carBrand" name="brand"
-                                    placeholder="Wprowadź model samochodu" required>
+                                    placeholder="Wprowadź model samochodu" required maxlength="30">
                             </div>
                             <div class="mb-3">
                                 <label for="carYear" class="form-label">Rok produkcji</label>
                                 <input type="number" class="form-control" id="carYear" name="year"
-                                    placeholder="Wprowadź rok produkcji" required>
+                                    placeholder="Wprowadź rok produkcji" required min="1976"
+                                    max="{{ date('Y') }}">
                             </div>
                             <div class="mb-3">
                                 <label for="carMileage" class="form-label">Przebieg (km)</label>
                                 <input type="number" class="form-control" id="carMileage" name="mileage"
-                                    placeholder="Wprowadź przebieg samochodu" required>
+                                    placeholder="Wprowadź przebieg samochodu" required min="0">
                             </div>
                             <div class="mb-3">
                                 <label for="carDescription" class="form-label">Opis</label>
-                                <textarea class="form-control" id="carDescription" name="description" rows="3" placeholder="Dodaj opis samochodu"></textarea>
+                                <textarea class="form-control" id="carDescription" name="description" rows="3" placeholder="Dodaj opis samochodu"
+                                    required></textarea>
                             </div>
                             <div class="mb-3">
                                 <label for="carEndDate" class="form-label">Data zakończenia</label>
-                                <input type="datetime-local" class="form-control" id="carEndDate" name="end_date" required>
+                                <input type="datetime-local" class="form-control" id="carEndDate" name="end_date"
+                                    required>
                             </div>
                             <div class="mb-3">
                                 <label for="carMinPrice" class="form-label">Cena minimalna (PLN)</label>
                                 <input type="number" class="form-control" id="carMinPrice" name="min_price"
-                                    placeholder="Wprowadź cenę minimalną" step="0.01" required>
+                                    placeholder="Wprowadź cenę minimalną" step="0.01" required min="0">
                             </div>
                             <div class="mb-3">
                                 <label for="carImages" class="form-label">Zdjęcia</label>
-                                <input type="file" class="form-control" id="carImages" name="images[]" multiple >
+                                <input type="file" class="form-control" id="carImages" name="images[]" multiple
+                                    accept="image/jpeg, image/png, image/webp">
                             </div>
                             <div class="d-grid">
                                 <button type="submit" class="btn btn-success">Dodaj ogłoszenie</button>
@@ -130,7 +144,8 @@
                                                 <h3>Rok produkcji: {{ $auction->announcement->year }}</h3>
                                                 <p>Data końca licytacji: {{ $auction->announcement->end_date }}</p>
                                                 <p>Najwyższa oferta użytkownika: {{ $auction->amount }}</p>
-                                                <a class="btn btn-primary" href="{{ route('cars.show' ,[ $auction->announcement->id])}}">Przeglądaj</a>
+                                                <a class="btn btn-primary"
+                                                    href="{{ route('cars.show', [$auction->announcement->id]) }}">Przeglądaj</a>
                                             </div>
                                         </div>
                                     </div>

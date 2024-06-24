@@ -1,6 +1,6 @@
 @include('shared.html')
 
-@include('shared.head', ['pageTitle' => 'Samochód: '.$announcement->name])
+@include('shared.head', ['pageTitle' => 'Samochód: ' . $announcement->name])
 
 <body>
     @include('shared.navbar')
@@ -15,9 +15,10 @@
                     <div id="carPhotosCarousel" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner">
                             @if ($announcement->photos->isNotEmpty())
-                                @foreach($announcement->photos as $key => $photo)
+                                @foreach ($announcement->photos as $key => $photo)
                                     <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
-                                        <img src="{{ asset('storage/'.$photo->photo_name) }}" class="d-block w-100" alt="{{ $announcement->name }}">
+                                        <img src="{{ asset('storage/' . $photo->photo_name) }}" class="d-block w-100"
+                                            alt="{{ $announcement->name }}">
                                     </div>
                                 @endforeach
                             @else
@@ -26,11 +27,13 @@
                                 </div>
                             @endif
                         </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#carPhotosCarousel" data-bs-slide="prev">
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carPhotosCarousel"
+                            data-bs-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                             <span class="visually-hidden">Previous</span>
                         </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#carPhotosCarousel" data-bs-slide="next">
+                        <button class="carousel-control-next" type="button" data-bs-target="#carPhotosCarousel"
+                            data-bs-slide="next">
                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
                             <span class="visually-hidden">Next</span>
                         </button>
@@ -48,7 +51,7 @@
                     </div>
                     <div class="card-footer text-center">
                         <h5 class="card-title">Cena minimalna: {{ $announcement->min_price }} zł</h5>
-                        @if($highestBid)
+                        @if ($highestBid)
                             <h5 class="card-title">Aktualnie oferowana cena: {{ $highestBid->amount }} zł</h5>
                             <h5 class="card-title">Najwyższą ofertę złożył: {{ $highestBid->user->email }}</h5>
                         @else
@@ -64,29 +67,39 @@
                                 </ul>
                             </div>
                         @endif
-                        @if($announcement->is_end)
+                        @if ($announcement->is_end)
                             <div class="alert alert-warning">Licytacja zakończona</div>
 
-                            @if($highestBid && Auth::check())
-                                @if(Auth::user()->email === $highestBid->user->email)
-                                    <h5>Gratulację wygrałeś licytację</h5>
+                            @if ($highestBid && Auth::check())
+                                @if (Auth::user()->email === $highestBid->user->email)
+                                    <h5>Gratulacje wygrałeś licytację</h5>
                                 @else
                                     <h5 class="card-title">Zwycięzca licytacji: {{ $highestBid->user->email }}</h5>
                                 @endif
                             @endif
                             <button type="button" class="btn btn-secondary" disabled>Licytuj</button>
                         @else
-                            <form action="{{ route('bids.store', $announcement->id) }}" method="POST">
-                                @csrf
-                                <div class="mb-3">
-                                    <input type="number" name="amount" class="form-control" placeholder="Wpisz kwotę licytacji" required>
-                                </div>
-                                @if(Auth::check())
-                                    <button type="submit" class="btn btn-primary">Licytuj</button>
-                                @else
-                                    <button type="submit" class="btn btn-group-toggle" disabled>Licytuj</button>
-                                @endif
-                            </form>
+                            @if (Auth::check() && Auth::user()->id === $announcement->user->id)
+                                <div class="alert alert-info">Nie możesz licytować własnego ogłoszenia.</div>
+                            @else
+                                <form action="{{ route('bids.store', $announcement->id) }}" method="POST">
+                                    @csrf
+
+                                    @if (Auth::check())
+                                        <div class="mb-3">
+                                            <input type="number" name="amount" class="form-control"
+                                                placeholder="Wpisz kwotę licytacji" required min='0' max='9999999999999'>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Licytuj</button>
+                                    @else
+                                        <div class="mb-3">
+                                            <input type="number" name="amount" class="form-control"
+                                                placeholder="Wpisz kwotę licytacji" required disabled min='0' max='9999999999999'>
+                                        </div>
+                                        <button type="submit" class="btn btn-group-toggle" disabled>Licytuj</button>
+                                    @endif
+                                </form>
+                            @endif
                         @endif
                     </div>
                 </div>
@@ -96,4 +109,5 @@
 
     @include('shared.footer', ['fixedBottom' => true])
 </body>
+
 </html>

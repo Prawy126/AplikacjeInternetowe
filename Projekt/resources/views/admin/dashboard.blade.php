@@ -99,7 +99,7 @@
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header bg-success text-white">
-                        <h2>Liczba ogłoszeń na użytkownika</h2>
+                        <h2>Liczba ogłoszeń użytkowników</h2>
                     </div>
                     <div class="card-body">
                         <canvas id="userAnnouncementsChart"></canvas>

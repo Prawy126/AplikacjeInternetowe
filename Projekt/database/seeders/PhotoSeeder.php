@@ -26,7 +26,7 @@ class PhotoSeeder extends Seeder
 
         [
             'announcement_id' => 1,
-            'photo_name' => 'img/AUDI2.png'
+            'photo_name' => 'img/AUDI2.webp'
         ],
 
         [
@@ -75,7 +75,7 @@ class PhotoSeeder extends Seeder
         ],
         [
             'announcement_id' => 5,
-            'photo_name' => 'img/TOYOTA4.jpg'
+            'photo_name' => 'img/TOYOTA4.webp'
         ],
         [
             'announcement_id' => 6,

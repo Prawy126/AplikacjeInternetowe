@@ -23,10 +23,10 @@
 
         <div class="row mt-4 mb-4 text-center card">
 
-            <h1 class="display-1 fw-bold">403</h1>
+            <h1 class="display-1 fw-bold">405</h1>
             <h2>
                 @if (App::environment('local'))
-                    <h1>Nie posiadasz dostępu do tej strony</h1>
+                    <h1>Tej operacji nie można wykonać pod tym adresem</h1>
                 @else
                     not found
                 @endif

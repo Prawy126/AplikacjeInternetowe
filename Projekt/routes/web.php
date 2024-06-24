@@ -43,10 +43,10 @@ Route::prefix('admin')->middleware('auth')->group(function () {
 
 Route::controller(AnnouncementController::class)->group(function () {
     Route::get('/home', 'index')->name('cars.index');
-    Route::get('/car/{id}', 'show')->name('cars.show');
-    Route::get('/car/{id}/edit', 'edit')->name('cars.edit');
-    Route::put('/car/{id}', 'update')->name('announcements.update');
-    Route::get('/oferty', 'oferty')->name('cars.oferty');
+    Route::get('/cars/{id}', 'show')->name('cars.show');
+    Route::get('/cars/{id}/edit', 'edit')->name('cars.edit');
+    Route::put('/cars/{id}', 'update')->name('announcements.update');
+    Route::get('/oferts', 'oferts')->name('cars.oferts');
     Route::delete('/announcement/{id}', 'destroy')->name('cars.destroy');
 });
 
