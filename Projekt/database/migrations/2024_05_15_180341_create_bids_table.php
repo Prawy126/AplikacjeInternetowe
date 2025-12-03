@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignIdFor(User::class)->constrained();
             $table->foreignIdFor(Announcement::class)->constrained();
             $table->decimal('amount',10,2);
-            $table->timestamp('time');
+            $table->timestamp('time')->useCurrent(); 
             $table->timestamps();
         });
     }

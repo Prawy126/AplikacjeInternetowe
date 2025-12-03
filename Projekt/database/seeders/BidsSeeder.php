@@ -4,8 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\Bid;
 use App\Models\Bids;
-use App\Models\History;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Schema;
 
@@ -19,15 +17,13 @@ class BidsSeeder extends Seeder
         Schema::withoutForeignKeyConstraints(function () {
             Bids::truncate();
         });
+
         Bid::insert([
             [
-                'user_id'=>2,
-                'announcement_id'=>1,
-                'amount'=>3213,
-
-
+                'user_id' => 2,
+                'announcement_id' => 1,
+                'amount' => 3213,
             ]
         ]);
-
     }
 }
